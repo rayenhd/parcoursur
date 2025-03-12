@@ -1,0 +1,10 @@
+fastapi # Framework API rapide et léger
+uvicorn   # Serveur ASGI pour exécuter FastAPI
+joblib
+torch
+torchvision
+pandas
+numpy<2
+nltk
+scikit-learn
+transformers
