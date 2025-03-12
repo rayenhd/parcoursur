@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.vscode/
+.idea/
+.env
+.DS_Store
+node_modules/
+data/  # La data est partagée via Docker, donc inutile dans Git
