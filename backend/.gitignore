@@ -8,5 +8,5 @@ __pycache__/
 env/
 .DS_Store
 node_modules/
-data/  # La data est partagée via Docker, donc inutile dans Git
-app/models/generated_models/
+data/*  # La data est partagée via Docker, donc inutile dans Git
+app/models/generated_models/*
