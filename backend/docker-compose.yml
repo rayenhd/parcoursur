@@ -1,13 +1,15 @@
-version: '3.8'
+version: "3.8"
 
 services:
   api:
     build: .
-    container_name: parcoursur_api
     ports:
       - "8000:8000"
-    environment:
-      - ENV=production
-    restart: always
     volumes:
-      - ./data:/app/data  # 📂 Monte le dossier local `data/` dans le conteneur
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - ENV=dev
+
+volumes:
+  model_storage:

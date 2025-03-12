@@ -7,7 +7,7 @@ import os
 router = APIRouter()
 
 # Charger le modèle IA
-model_path = os.path.join(os.path.dirname(__file__), "../models/vectorizer.pkl")
+model_path = os.path.join(os.path.dirname(__file__), "../models/generated_models/vectorizer.pkl")
 model = joblib.load(model_path)
 @router.post("/predict/")
 async def predict(data: dict):

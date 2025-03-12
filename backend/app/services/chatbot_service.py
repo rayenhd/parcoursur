@@ -12,7 +12,7 @@ nltk.download('stopwords')
 stop_words = set(stopwords.words('french'))
 
 # 📌 1. Chargement du modèle Transformer
-model_path = "./app/models/chatbot_transformer_model"
+model_path = "./app/models/generated_models/chatbot_transformer_model"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(model_path)
 

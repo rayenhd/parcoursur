@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Charger le modèle TF-IDF sauvegardé
-with open("./app/models/vectorizer.pkl", "rb") as f:
+with open("./app/models/generated_models/vectorizer.pkl", "rb") as f:
     vectorizer = pickle.load(f)
 
 # Charger le dataset

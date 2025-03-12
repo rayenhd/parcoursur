@@ -5,7 +5,7 @@ FROM python:3.10
 WORKDIR /app
 
 # Copier uniquement les fichiers nécessaires
-COPY requirements.txt .
+COPY . /app
 
 # Installer les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
