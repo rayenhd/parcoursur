@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: app-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/models/generated_models:/app/backend/models/generated_models
+      - ./data:/app/data
+    environment:
+      - ENV=dv
+    restart: always
