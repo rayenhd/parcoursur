@@ -10,5 +10,5 @@ env/
 node_modules/
 data/*  # Ignore tout le contenu du dossier data
 !data/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
-app/models/generated_models/*  # Ignore tout le contenu du dossier generated_models
-!app/models/generated_models/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
+backend/models/generated_models/*  # Ignore tout le contenu du dossier generated_models
+!backend/models/generated_models/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
