@@ -8,5 +8,7 @@ __pycache__/
 env/
 .DS_Store
 node_modules/
-data/*  # La data est partagée via Docker, donc inutile dans Git
-app/models/generated_models/*
+data/*  # Ignore tout le contenu du dossier data
+!data/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
+app/models/generated_models/*  # Ignore tout le contenu du dossier generated_models
+!app/models/generated_models/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
