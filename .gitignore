@@ -8,7 +8,7 @@ __pycache__/
 env/
 .DS_Store
 node_modules/
-app/data  # Ignore tout le contenu du dossier data
-!app/data/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
-app/backend/models/generated_models  # Ignore tout le contenu du dossier generated_models
-!app/backend/models/generated_models/.gitkeep  # Mais garde un fichier vide pour que le dossier soit suivi
+app/data/
+!app/data/.gitkeep
+app/backend/models/generated_models/
+!app/backend/models/generated_models/.gitkeep
