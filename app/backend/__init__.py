@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-from backend.routes import chatbot, data
+from backend.routes import chatbot
 
 app.include_router(chatbot.router)
-app.include_router(data.router)
+# app.include_router(data.router)

@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from backend.routes import chatbot, data
+from backend.routes import chatbot
 
 app = FastAPI()
 
 app.include_router(chatbot.router, prefix="/api/chatbot")
-app.include_router(data.router, prefix="/api/data")
+# app.include_router(chatbot_tfidf.router, prefix="/api/data")
 
 @app.get("/")
 def home():

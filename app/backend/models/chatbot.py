@@ -65,7 +65,7 @@ question_utilisateur = "Qu'est ce que le métier d'orthophoniste?"
 print("Edu Pilot:", trouver_reponse(question_utilisateur))
 
 # 💾 Sauvegarde du Modèle Chatbot
-with open("./app/models/generated_models/vectorizer.pkl", "wb") as f:
+with open("backend/models/generated_models/vectorizer.pkl", "wb") as f:
     pickle.dump(vectorizer, f)
 
 print("✅ Modèle vectorizer enregistré dans 'vectorizer.pkl'")
