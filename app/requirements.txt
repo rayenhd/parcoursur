@@ -1,12 +1,20 @@
-fastapi # Framework API rapide et léger
-uvicorn   # Serveur ASGI pour exécuter FastAPI
-joblib
-torch
-torchvision
+streamlit
+langchain
+langchain-huggingface
+openai
+chromadb
+faiss-cpu
+sentence-transformers
+google-cloud-storage
+google-cloud-aiplatform
 pandas
 numpy<2
-nltk
-scikit-learn
 transformers
-dotenv
-google-cloud-storage
+torch
+langchain-core
+huggingface-hub
+duckduckgo-search
+python-dotenv
+
+langchain-community
+tqdm

@@ -8,8 +8,10 @@ DATA_DIR=data/
 MODELS_BUCKET=parcoursur_models
 MODELS_DIR=backend/models/generated_models/
 SERVICE_ACCOUNT_NAME=parcoursur-sa
+VECTORSTORE_DIR=backend/models/vectorization/vectorstore/
 SERVICE_ACCOUNT_EMAIL=$(SERVICE_ACCOUNT_NAME)@$(PROJECT_ID).iam.gserviceaccount.com
 SERVICE_ACCOUNT_KEY=parcoursur-sa-key.json
+HUGGING_FACE = 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
 
 
 # 📌 Lister les buckets du projet
@@ -18,17 +20,66 @@ list-buckets:
 	gcloud storage buckets list
 
 
+# ---------------- Uploading data ----------------
+# 📌 Uploader les données sur GCS
+
 upload-data:
 	gsutil -m cp -r $(DATA_DIR)* gs://$(DATA_BUCKET)/
 
-upload-models:
-	gsutil -m cp -r $(MODELS_DIR)* gs://$(MODELS_BUCKET)/
+upload-data-source:
+	gsutil -m cp -r $(DATA_DIR)source/* gs://$(DATA_BUCKET)/source/
+
+upload-data-cleaned:
+	gsutil -m cp -r $(DATA_DIR)cleaned/* gs://$(DATA_BUCKET)/cleaned/
+
+
+override-data:
+	gsutil -m rm -r gs://$(DATA_BUCKET)/**
+	gsutil -m cp -r $(DATA_DIR)/* gs://$(DATA_BUCKET)/
+
+override-data-source:
+	gsutil -m rm -r gs://$(DATA_BUCKET)/source/**
+	gsutil -m cp -r $(DATA_DIR)source/* gs://$(DATA_BUCKET)/source/
+
+override-data-cleaned:
+	gsutil -m rm -r gs://$(DATA_BUCKET)/cleaned/**
+	gsutil -m cp -r $(DATA_DIR)cleaned/* gs://$(DATA_BUCKET)/cleaned/
+
 
 download-data:
 	gsutil -m cp -r gs://$(DATA_BUCKET)/* $(DATA_DIR)
 
+download-data-source:	
+	gsutil -m cp -r gs://$(DATA_BUCKET)/source/* $(DATA_DIR)source
+
+download-data-cleaned:	
+	gsutil -m cp -r gs://$(DATA_BUCKET)/cleaned/* $(DATA_DIR)cleaned
+
+
+
+
+# ---------------- Uploading models ----------------
+upload-models:
+	gsutil -m cp -r $(MODELS_DIR)* gs://$(MODELS_BUCKET)/
+
+upload-models-vectorstore:
+	gsutil -m cp -r $(VECTORSTORE_DIR)* gs://$(MODELS_BUCKET)/vectorstore/
+
+download-models-vectorstore:
+	gsutil -m cp -r gs://$(MODELS_BUCKET)/vectorstore/* $(VECTORSTORE_DIR)
+
+
 download-models:
 	gsutil -m cp -r gs://$(MODELS_BUCKET)/* $(MODELS_DIR)
+
+upload-models:
+	gsutil -m cp -r $(MODELS_DIR)* gs://$(MODELS_BUCKET)/
+
+
+
+exporting-hugging:
+	export HUGGINGFACEHUB_API_TOKEN=$(HUGGING_FACE)
+
 
 
 # 📌 1️⃣ Connexion au projet GCP

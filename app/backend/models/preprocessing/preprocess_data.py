@@ -54,7 +54,6 @@ df_diplomes = df_diplomes.rename(columns={
 df_diplomes = df_diplomes[["type_diplome", "nom_diplome", "niveau_diplome", "code_RNCP"]]
 df_diplomes.dropna(subset=["nom_diplome"], inplace=True)
 df_diplomes.drop_duplicates(inplace=True)
-df_formations.drop_duplicates(inplace=True)
 
 
 # ❓ QUESTIONS-RÉPONSES
@@ -63,100 +62,94 @@ df_questions_reponses = df_questions_reponses.rename(columns={"Question": "quest
 
 df_questions_reponses.dropna(subset=["question", "reponse"], inplace=True)
 
-# 📚 FORMATIONS
-df_formations = df_formations.rename(columns={
-    "libelle_formation_principal": "nom_formation",
-    "sigle_type_formation": "sigle_formation",
-    "niveau_de_sortie_indicatif": "niveau_sortie",
-    "code_rncp": "code_RNCP",
-    "duree": "duree_formation",
-    "tutelle": "tutelle_formation"
-})
 
 # print("formations valeurs nulles : ", df_formations.isnull().sum())
 # print("diplome valeurs nulles : ", df_diplomes.isnull().sum())
 
-df_formations = df_formations[["nom_formation", "sigle_formation", "niveau_sortie", "duree_formation", "code_RNCP", "tutelle_formation"]]
-df_formations.dropna(subset=["nom_formation"], inplace=True)
+# df_formations = df_formations[["nom_formation", "sigle_formation", "niveau_sortie", "duree_formation", "code_RNCP", "tutelle_formation"]]
+# df_formations.dropna(subset=["nom_formation"], inplace=True)
 
 
 # 📌 FUSION DES DONNÉES
 
 # 🔄 Correction des types pour fusion
-df_formations["code_RNCP"] = df_formations["code_RNCP"].astype(str)
+# df_formations["code_RNCP"] = df_formations["code_RNCP"].astype(str)
 df_diplomes["code_RNCP"] = df_diplomes["code_RNCP"].astype(str)
 df_metiers["code_ROME"] = df_metiers["code_ROME"].astype(str)
 
-# Vérifier si les codes RNCP existent dans les deux datasets
-common_rncp = set(df_formations["code_RNCP"]) & set(df_diplomes["code_RNCP"])
-# print(f"Nombre de codes RNCP communs : {len(common_rncp)}")
-# print("Exemple de codes RNCP dans df_formations :", df_formations["code_RNCP"].unique()[:10])
-# print("Exemple de codes RNCP dans df_diplomes :", df_diplomes["code_RNCP"].unique()[:10])
 
-
-# print("infos   diplome ", df_diplomes.info())
-# print("infos   metiers ", df_metiers.info())
-# print("infos   etablissements ", df_etablissements.info())
-# print("infos   questions_reponses ", df_questions_reponses.info())
-# print("infos   formations ", df_formations.info())
-# print(f"- Valeurs uniques dans df_formations : {df_formations['code_RNCP'].nunique()}")
-# print(f"- Valeurs uniques dans df_diplomes : {df_diplomes['code_RNCP'].nunique()}")
-
-# # 📂 Sauvegarde du fichier nettoyé
-# df_formations_diplomes.to_csv("/mnt/data/cleaned_formation_diplome_fixed.csv", index=False, encoding="utf-8")
-
-# 🛠 Convertir en string et supprimer le ".0" à la fin
-df_formations["code_RNCP"] = df_formations["code_RNCP"].astype(str).str.replace(".0", "", regex=False)
-df_diplomes["code_RNCP"] = df_diplomes["code_RNCP"].astype(str).str.replace(".0", "", regex=False)
-
-
-df_rncp_formation = df_formations["code_RNCP"].dropna()
-print("df_rncp_formation : ", df_rncp_formation.head())
-
-
-common_rncp = set(df_formations["code_RNCP"]) & set(df_diplomes["code_RNCP"])
-# print(f"Nombre de codes RNCP communs : {len(common_rncp)}")
-
-# 🛠 Supprimer les valeurs "nan" générées par la conversion
-df_formations["code_RNCP"] = df_formations["code_RNCP"].replace("nan", pd.NA)
-df_diplomes["code_RNCP"] = df_diplomes["code_RNCP"].replace("nan", pd.NA)
+print("nombre de valeurs nulles dans les formations : ", df_formations.isnull().sum())
+print("nombre de valeurs nulles dans les diplomes : ", df_diplomes.isnull().sum())
+print("nombre de valeurs nulles dans les metiers : ", df_metiers.isnull().sum())
+print("nombre de valeurs nulles dans les etablissements : ", df_etablissements.isnull().sum())
 
 
 
+# ----------------------- Formation -----------------------
 
-# print("head df :     ", df_formations_diplomes.head())
-# df_formations_diplomes.to_csv("data/cleaned/cleaned_formation_diplome.csv", index=False, encoding="utf-8")
-# 🛠 Suppression de la colonne en double
-# df_formations_diplomes.drop(columns=["sigle_formation.1"], inplace=True)
+# Sélectionner uniquement les colonnes pertinentes
+columns_to_keep = [
+    "libelle_type_formation", "libelle_formation_principal",
+    "duree", "niveau_de_sortie_indicatif", "libelle_niveau_de_certification",
+    "tutelle", "url_et_id_onisep", "domainesous-domaine", "code_rncp"
+]
+df_cleaned = df_formations[columns_to_keep].copy()
 
+# Renommer les colonnes pour plus de clarté
+df_cleaned.rename(columns={
+    "libelle_type_formation": "type_formation",
+    "libelle_formation_principal": "nom_formation",
+    "duree": "duree",
+    "niveau_de_sortie_indicatif": "niveau_etude",
+    "libelle_niveau_de_certification": "niveau_certification",
+    "tutelle": "ministere_tutelle",
+    "url_et_id_onisep": "lien_onisep",
+    "domainesous-domaine": "domaine",
+    "code_rncp": "code_rncp"
+}, inplace=True)
 
-# 🔗 Fusion formations ⇄ métiers via domaine simplifié
-# df_metiers["domaine_simplifie"] = df_metiers["domaine"].str.split("/").str[0]
-# df_formations_diplomes["domaine_simplifie"] = df_formations_diplomes["nom_formation"].str.split().str[0]
-# df_formations_metiers = df_formations_diplomes.merge(df_metiers, how="left", on="domaine_simplifie")
+# Supprimer les doublons
+df_cleaned.drop_duplicates(inplace=True)
 
-# 📍 Association formations ⇄ établissements via académie
-# df_etablissements["academie"] = df_etablissements["academie"].astype(str)
-# df_formations_metiers["academie"] = df_formations_metiers["tutelle_formation"].astype(str)
-# df_etablissements_formations = df_formations_metiers.merge(df_etablissements, how="left", on="academie")
+# Remplacer les valeurs nulles ou manquantes
+df_cleaned.fillna({
+    "type_formation": "Non renseigné",
+    "nom_formation": "Non renseigné",
+    "duree": "Non renseigné",
+    "niveau_etude": "Non renseigné",
+    "niveau_certification": "Non renseigné",
+    "ministere_tutelle": "Non renseigné",
+    "lien_onisep": "Non renseigné",
+    "domaine": "Non renseigné",
+    "code_rncp": "Non renseigné"
+}, inplace=True)
 
-# 📌 Sélection des colonnes essentielles après fusion
-# df_final = df_etablissements_formations[[
-#     "nom_formation", "sigle_formation", "niveau_sortie", "duree_formation",
-#     "nom_diplome", "niveau_diplome", "nom_metier", "libelle_ROME", "domaine",
-#     "nom_etablissement", "type_etablissement", "statut_etablissement", "departement", "academie", "region"
-# ]]
+# Supprimer les espaces inutiles et uniformiser les valeurs textuelles
+df_cleaned = df_cleaned.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
-# Suppression des doublons et valeurs manquantes après correction
-# print("Nombre de lignes dans df_final :", len(df_final))
+df_cleaned.to_csv("data/cleaned/cleaned_formations.csv", index=False, encoding="utf-8")
+df_diplomes.to_csv("data/cleaned/cleaned_diplomes.csv", index=False, encoding="utf-8")
+df_metiers.to_csv("data/cleaned/cleaned_metiers.csv", index=False, encoding="utf-8")
+df_etablissements.to_csv("data/cleaned/cleaned_etablissements.csv", index=False, encoding="utf-8")
 
-# df_final.drop_duplicates(inplace=True)
-# df_final.dropna(subset=["nom_formation", "nom_etablissement"], inplace=True)
+# # Ajouter une indication sur la reconnaissance de l'État en fonction du RNCP
+# df_cleaned["reconnaissance_etat"] = df_cleaned["code_rncp"].apply(
+#     lambda x: "Oui" if x != "Non renseigné" else "Non"
+# )
 
+# # Fusionner toutes les informations en un texte unique par ligne
+# df_cleaned["texte"] = df_cleaned.apply(lambda row: f"{row['nom_formation']} est une formation de type {row['type_formation']} qui dure {row['duree']}. "
+#                                                    f"Elle correspond au niveau d'étude {row['niveau_etude']} et au niveau de certification {row['niveau_certification']}. "
+#                                                    f"Cette formation est sous la tutelle de {row['ministere_tutelle']} et appartient au domaine {row['domaine']}. "
+#                                                    f"RNCP : {row['code_rncp']} (Reconnue par l'État : {row['reconnaissance_etat']}). "
+#                                                    f"Plus d'informations disponibles ici : {row['lien_onisep']}.", axis=1)
 
-# ✅ EXPORT DU FICHIER PRÉTRAITÉ
-# df_final.to_csv("data/cleaned/cleaned_fusion.csv", index=False, encoding="utf-8")
+# # Sauvegarde en format texte
+# cleaned_text_file_rncp_fixed = "cleaned_formations_rncp_fixed.txt"
+# df_cleaned[["texte"]].to_csv(cleaned_text_file_rncp_fixed, index=False, header=False, sep="\n")
 
+# # Sauvegarde en format CSV
+# cleaned_csv_file_rncp_fixed = "cleaned_formations_rncp_fixed.csv"
+# df_cleaned.to_csv(cleaned_csv_file_rncp_fixed, index=False, encoding="utf-8")
 
-# ✅ FIN DU PREPROCESSING
-# print("✅ Preprocessing terminé, fichier prêt : cleaned_fusion.csv")
+# print(f"✅ Fichiers nettoyés enregistrés sous :\n📂 {cleaned_text_file_rncp_fixed}\n📂 {cleaned_csv_file_rncp_fixed}")
