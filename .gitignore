@@ -13,6 +13,8 @@ app/data/source/
 app/data/cleaned/
 !app/data/cleaned/.gitkeep
 !app/data/.gitkeep
+app/data/test/
+!app/data/test/.gitkeep
 app/vectorstore/chunks/
 !app/vectorstore/chunks/.gitkeep
 app/backend/models/generated_models/
