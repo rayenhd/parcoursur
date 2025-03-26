@@ -99,7 +99,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
         repo_id=HUGGINGFACE_REPO,
         temperature=0.5,
         max_new_tokens=512,
-        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN")
+        huggingfacehub_api_token="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"
     )
     chain = LLMChain(llm=llm, prompt=prompt)
 

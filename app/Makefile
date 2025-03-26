@@ -3,14 +3,14 @@ PROJECT_ID=keskia
 
 # Buckets déjà créés
 DATA_BUCKET=parcoursur_data
-DATA_DIR=data/
-
+VECTORSTORE_BUCKET=parcoursur_vectorized_data
 MODELS_BUCKET=parcoursur_models
+
+DATA_DIR=data/
 MODELS_DIR=backend/models/generated_models/
-SERVICE_ACCOUNT_NAME=parcoursur-sa
-VECTORSTORE_DIR=backend/models/vectorization/vectorstore/
-SERVICE_ACCOUNT_EMAIL=$(SERVICE_ACCOUNT_NAME)@$(PROJECT_ID).iam.gserviceaccount.com
-SERVICE_ACCOUNT_KEY=parcoursur-sa-key.json
+VECTORSTORE_DIR=vectorstore/chunks/
+
+
 HUGGING_FACE = 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
 
 
@@ -56,17 +56,32 @@ download-data-cleaned:
 	gsutil -m cp -r gs://$(DATA_BUCKET)/cleaned/* $(DATA_DIR)cleaned
 
 
+#-------------------- Vectorstore part ---------------------------
+upload-vectorstore:
+	gsutil rm gs://$(VECTORSTORE_BUCKET)/chunks/hash_log.json
+	gsutil -m cp -r $(VECTORSTORE_DIR)* gs://$(VECTORSTORE_BUCKET)/vectorstore
+
+upload-vectorstore-file:
+	gsutil rm gs://$(VECTORSTORE_BUCKET)/chunks/hash_log.json
+	gsutil -m cp -r vectorstore/chunks/hash_log.json gs://$(VECTORSTORE_BUCKET)/chunks/hash_log.json
+	gsutil -m cp -r vectorstore/chunks/$(file) gs://$(VECTORSTORE_BUCKET)/chunks/$(file)
+
+upload-vectorstore-logs:
+	gsutil rm gs://$(VECTORSTORE_BUCKET)/chunks/hash_log.json
+	gsutil -m cp -r vectorstore/chunks/hash_log.json gs://$(VECTORSTORE_BUCKET)/chunks/hash_log.json
+
+
+download-vectorstore:
+	gsutil -m cp -r gs://$(VECTORSTORE_BUCKET)/* $(VECTORSTORE_DIR)
+
+
+
 
 
 # ---------------- Uploading models ----------------
 upload-models:
 	gsutil -m cp -r $(MODELS_DIR)* gs://$(MODELS_BUCKET)/
 
-upload-models-vectorstore:
-	gsutil -m cp -r $(VECTORSTORE_DIR)* gs://$(MODELS_BUCKET)/vectorstore/
-
-download-models-vectorstore:
-	gsutil -m cp -r gs://$(MODELS_BUCKET)/vectorstore/* $(VECTORSTORE_DIR)
 
 
 download-models:
