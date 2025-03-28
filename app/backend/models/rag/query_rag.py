@@ -76,7 +76,7 @@ Donne une réponse claire, bienveillante et adaptée à la situation.
 llm = HuggingFaceEndpoint(
     repo_id=HUGGINGFACE_REPO,
     temperature=0.5,
-    max_new_tokens=512,
+    max_new_tokens=1024,
     huggingfacehub_api_token=HUGGINGFACE_TOKEN
 )
 

@@ -15,7 +15,7 @@ langchain-core
 huggingface-hub
 duckduckgo-search
 python-dotenv
-
+streamlit
 langchain-community
 tqdm
 transformers 
