@@ -29,6 +29,13 @@ upload-data:
 upload-data-source:
 	gsutil -m cp -r $(DATA_DIR)source/* gs://$(DATA_BUCKET)/source/
 
+upload-data-source-file:
+	gsutil -m cp -r $(DATA_DIR)source/$(file) gs://$(DATA_BUCKET)/source/$(file)
+
+upload-data-cleaned-file:
+	gsutil -m cp -r $(DATA_DIR)cleaned/$(file) gs://$(DATA_BUCKET)/cleaned/$(file)
+
+
 upload-data-cleaned:
 	gsutil -m cp -r $(DATA_DIR)cleaned/* gs://$(DATA_BUCKET)/cleaned/
 

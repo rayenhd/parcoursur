@@ -18,3 +18,8 @@ python-dotenv
 
 langchain-community
 tqdm
+transformers 
+accelerate 
+sentence-transformers
+langchain-core
+langchain-community
