@@ -81,7 +81,12 @@ upload-vectorstore-logs:
 download-vectorstore:
 	gsutil -m cp -r gs://$(VECTORSTORE_BUCKET)/* $(VECTORSTORE_DIR)
 
+run-chatbot:
+	streamlit run front/chatbot.py --server.runOnSave True
 
+
+create-windows-env:
+	python -m venv env
 
 
 

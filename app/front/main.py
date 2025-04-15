@@ -1,16 +1,111 @@
-# ───────────────────────────────
-# ✅ Structure Starter Streamlit Multi-Page
-# ───────────────────────────────
-
-# app.py (page d'accueil)
 import streamlit as st
+from PIL import Image
 
-st.set_page_config(page_title="Parcoursur AI", page_icon="🎓")
+# Configuration de la page
+st.set_page_config(
+    page_title="Parcoursur - Accueil",
+    page_icon="🎓",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
-st.title("Bienvenue sur Parcoursur AI 🟣")
-st.write("Choisissez une fonctionnalité ci-dessous :")
+# Couleurs personnalisées en CSS
+st.markdown("""
+    <style>
+        .stApp {
+            background-color: #ffffff;
+            color: #111827;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1E40AF;
+            margin-top: 40px;
+        }
+        .subtitle {
+            font-size: 20px;
+            color: #1E40AF;
+            margin-bottom: 20px;
+        }
+        .cta-button {
+            background-color: #3B82F6;
+            color: white;
+            padding: 0.75rem 2rem;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .test-card {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .test-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-# Navigation vers les pages
-#st.page_link("backend/models/rag/query_rag.py", label="💬 Chatbot d'orientation", icon="🤖")
-#st.page_link("pages/2_Tinder_des_metiers.py", label="🎯 Tinder des métiers", icon="❤️")
-#st.page_link("pages/3_A_propos.py", label="ℹ️ À propos", icon="📄")
+# Logo
+logo = Image.open("assets/logo.jpg")
+st.image(logo, width=100)
+laptop = Image.open("assets/logo.jpg")
+
+# Layout principal
+titre, illustration = st.columns([1, 1])
+
+with titre:
+    st.markdown('<div class="title">Et si on trouvait enfin ce qui te correspond ?</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Une IA bienveillante pour guider ton avenir scolaire et professionnel.</div>', unsafe_allow_html=True)
+    st.markdown('<a href="chatbot"><button class="cta-button">Lancer le test</button></a>', unsafe_allow_html=True)
+
+with illustration:
+    st.image("assets/illustration.png", use_container_width=True)
+
+# Section de sélection de tests
+st.markdown("""
+<hr>
+<h3 id="tests">Choisis ton test :</h3>
+""", unsafe_allow_html=True)
+
+test1, test2, test3 = st.columns(3)
+
+with test1:
+    st.markdown("""
+    <div class="test-card">
+        <div class="test-icon">⏱️</div>
+        <h4>Tu sais déjà ce que tu veux ?</h4>
+        <p>Utilise notre chatbot afin de t'aiguiller au mieux</p>
+        <a href="/chatbot"><button class="cta-button" style="background-color:#3B82F6;">Commencer</button></a>
+    </div>
+    """, unsafe_allow_html=True)
+
+with test2:
+    st.markdown("""
+    <div class="test-card">
+        <div class="test-icon">💻</div>
+        <h4>Tu ne pas par où commencer ?</h4>
+        <p>Nous allons te guider pas à pas en posant différentes questions.</p>
+        <a href="/choix"><button class="cta-button" style="background-color:#60A5FA;">Commencer</button></a>
+    </div>
+    """, unsafe_allow_html=True)
+
+with test3:
+    st.markdown("""
+    <div class="test-card">
+        <div class="test-icon">🧠</div>
+        <h4>Tu veux découvrir de nouveaux métiers ?</h4>
+        <p>Découvre notre plateforme qui t'aidera à trouver ton futur métier !</p>
+        <a href="/jobinder"><button class="cta-button" style="background-color:#FBBF24; color:black;">Commencer</button></a>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Footer
+st.markdown("""
+---
+<center>© 2025 Parcoursur - Inspiré par vos rêves, guidé par l'IA 🎓</center>
+""", unsafe_allow_html=True)

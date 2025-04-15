@@ -17,5 +17,7 @@ app/data/test/
 !app/data/test/.gitkeep
 app/vectorstore/chunks/
 !app/vectorstore/chunks/.gitkeep
+app/vectorstore/jobinder/
+!app/vectorstore/jobinder/.gitkeep
 app/backend/models/generated_models/
 !app/backend/models/generated_models/.gitkeep

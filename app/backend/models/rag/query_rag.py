@@ -15,12 +15,12 @@ from langchain_community.tools import DuckDuckGoSearchRun
 
 # === Chargement des variables d'environnement
 load_dotenv()
-HUGGINGFACE_TOKEN = "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"
+HUGGINGFACE_TOKEN = "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"
 
 # === Configuration
 VECTORSTORE_DIR = "vectorstore/chunks/"
 EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
-HUGGINGFACE_REPO = "meta-llama/Meta-Llama-3-8B-Instruct"  # ou HuggingFaceH4/zephyr-7b-beta
+HUGGINGFACE_REPO = "OpenAssistant/oasst-sft-1-pythia-12b"  # ou HuggingFaceH4/zephyr-7b-beta
 USE_WEB_SEARCH = True
 
 # === Initialisation des composants
@@ -59,7 +59,15 @@ def get_relevant_documents(query: str, k=5) -> List[Document]:
 
 # === Prompt
 prompt_template = PromptTemplate.from_template("""
-Tu es un conseiller expert en orientation scolaire et professionnelle.
+Tu es un conseiller expert en orientation scolaire et professionnelle qui doit :
+- Répondre avec un ton simple et respectueux, compréhensible pour les jeunes
+- Répondre également avec humour mais toujours dans le respect
+- Utiliser un langage clair et facile à comprendre
+- Prendre en compte les attentes de l'utilisateur
+- Donner des exemples concrets, des statistiques ou des témoignages quand c’est pertinent
+Tu dois proposer 3 secteurs d'activités dans lequel pourrait se retrouver l'utilisateur, et 2 métiers par secteur.
+Base toi uniquement sur les index fournis, si tu ne trouves pas la réponse, pose une question pour orienter l'utilisateur.
+
 Voici l'historique de la conversation :
 {history}
 
@@ -75,7 +83,8 @@ Donne une réponse claire, bienveillante et adaptée à la situation.
 # === Modèle Hugging Face
 llm = HuggingFaceEndpoint(
     repo_id=HUGGINGFACE_REPO,
-    temperature=0.5,
+    temperature=0.2,
+    task="text-generation",
     max_new_tokens=1024,
     huggingfacehub_api_token=HUGGINGFACE_TOKEN
 )
@@ -85,6 +94,7 @@ history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
+    print("la question est :     ", question)
     history.append(f"Human: {question}")
 
     internal_docs = get_relevant_documents(question)
@@ -104,10 +114,10 @@ def answer_question(question: str, use_web: bool = False) -> str:
             context=context
         )
     )
+    clean_response = re.sub(r"(Répondre.*?)(?=Répondre|$)", "", response, flags=re.IGNORECASE | re.DOTALL).strip()
+    history.append(f"AI: {clean_response}")
 
-    history.append(f"AI: {response}")
-
-    return response.strip()
+    return clean_response.strip()
 
 # === Interface CLI
 if __name__ == "__main__":
