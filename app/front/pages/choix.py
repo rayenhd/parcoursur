@@ -69,6 +69,43 @@ st.markdown("""
             object-fit: cover;
             opacity: 0.15;
         }
+        @media screen and (max-width: 400px) {
+            .card-container {
+                flex-direction: column !important;
+                align-items: center;
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .card {
+                width: 85% !important;
+                padding: 20px;
+            }
+
+            .card h2 {
+                font-size: 18px !important;
+            }
+
+            .card p {
+                font-size: 14px !important;
+            }
+
+            .card button {
+                font-size: 14px !important;
+                padding: 8px 16px !important;
+                width: 100%;
+            }
+
+            h1.title {
+                font-size: 24px !important;
+                padding: 0 10px;
+            }
+
+            img {
+                display: none !important;
+            }
+        }
+
     </style>
 """, unsafe_allow_html=True)
 

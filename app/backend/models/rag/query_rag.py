@@ -12,6 +12,10 @@ from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.tools import DuckDuckGoSearchRun
+import openai
+from openai import AzureOpenAI
+from azure.core.credentials import AzureKeyCredential
+
 
 # === Chargement des variables d'environnement
 load_dotenv()
@@ -22,6 +26,23 @@ VECTORSTORE_DIR = "vectorstore/chunks/"
 EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 HUGGINGFACE_REPO = "OpenAssistant/oasst-sft-1-pythia-12b"  # ou HuggingFaceH4/zephyr-7b-beta
 USE_WEB_SEARCH = True
+AZURE_API_KEY = "70vwwlq5J8a2CrqnMZVfxY83ztdx6Ahgor5y2WbUHtTBgOhuROIdJQQJ99BDAC5T7U2XJ3w3AAABACOGrF5i"
+AZURE_ENDPOINT = "https://oai-test-rg-test.openai.azure.com/"
+AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
+AZURE_API_VERSION = "2025-01-01-preview"
+
+client = AzureOpenAI(
+    api_version=AZURE_API_VERSION,
+    azure_endpoint=AZURE_ENDPOINT,
+    api_key=AZURE_API_KEY
+)
+
+"""""
+openai.api_type = "azure"
+openai.api_base = AZURE_ENDPOINT
+openai.api_version = AZURE_API_VERSION
+openai.api_key = AZURE_API_KEY
+"""
 
 # === Initialisation des composants
 embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
@@ -81,13 +102,13 @@ Donne une réponse claire, bienveillante et adaptée à la situation.
 """)
 
 # === Modèle Hugging Face
-llm = HuggingFaceEndpoint(
-    repo_id=HUGGINGFACE_REPO,
-    temperature=0.2,
-    task="text-generation",
-    max_new_tokens=1024,
-    huggingfacehub_api_token=HUGGINGFACE_TOKEN
-)
+#llm = HuggingFaceEndpoint(
+ #   repo_id=HUGGINGFACE_REPO,
+#    temperature=0.2,
+#    task="text-generation",
+#    max_new_tokens=1024,
+#    huggingfacehub_api_token=HUGGINGFACE_TOKEN
+#)
 
 # === Historique custom
 history = []
@@ -107,17 +128,38 @@ def answer_question(question: str, use_web: bool = False) -> str:
 
     context = "\n\n".join(set(doc.page_content for doc in internal_docs + web_docs))
 
-    response = llm.invoke(
-        prompt_template.format(
-            input=question,
-            history="\n".join(history[-5:]),  # garder seulement les 5 derniers échanges
-            context=context
-        )
-    )
-    clean_response = re.sub(r"(Répondre.*?)(?=Répondre|$)", "", response, flags=re.IGNORECASE | re.DOTALL).strip()
-    history.append(f"AI: {clean_response}")
 
-    return clean_response.strip()
+    prompt = prompt_template.format(
+        input=question,
+        history="\n".join(history[-5:]),
+        context=context
+    )
+
+    response = client.chat.completions.create(
+        model=AZURE_DEPLOYMENT,
+        messages=[
+            {"role": "system", "content": "Tu es un assistant d’orientation scolaire bienveillant, drôle et clair."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7,
+        max_tokens=800
+    )
+
+    #response = llm.invoke(
+    #    prompt_template.format(
+     #       input=question,
+     #       history="\n".join(history[-5:]),  # garder seulement les 5 derniers échanges
+     #       context=context
+     #   )
+   # )
+    #clean_response = re.sub(r"(Répondre.*?)(?=Répondre|$)", "", response, flags=re.IGNORECASE | re.DOTALL).strip()
+    #history.append(f"AI: {clean_response}")
+
+    #return clean_response.strip()
+    answer = response.choices[0].message.content.strip()
+    history.append(f"AI: {answer}")
+
+    return answer
 
 # === Interface CLI
 if __name__ == "__main__":

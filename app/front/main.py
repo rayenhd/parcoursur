@@ -19,12 +19,12 @@ st.markdown("""
         .title {
             font-size: 42px;
             font-weight: bold;
-            color: #1E40AF;
+            color: #150e60;
             margin-top: 40px;
         }
         .subtitle {
             font-size: 20px;
-            color: #1E40AF;
+            color: #150e60;
             margin-bottom: 20px;
         }
         .cta-button {
@@ -50,18 +50,17 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Logo
-logo = Image.open("assets/logo.jpg")
-st.image(logo, width=100)
-laptop = Image.open("assets/logo.jpg")
-
 # Layout principal
 titre, illustration = st.columns([1, 1])
 
 with titre:
-    st.markdown('<div class="title">Et si on trouvait enfin ce qui te correspond ?</div>', unsafe_allow_html=True)
+    st.markdown("<div class='title'>DIRECTION LA <strong style='color: #f2ae19'>RÉUSSITE !</strong></div>", unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Une IA bienveillante pour guider ton avenir scolaire et professionnel.</div>', unsafe_allow_html=True)
-    st.markdown('<a href="chatbot"><button class="cta-button">Lancer le test</button></a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://parcoursur.fr/"><button class="cta-button">Découvre nous</button></a>', unsafe_allow_html=True)
+
+    # Logo
+    logo = Image.open("assets/logo_complet.png")
+    st.image(logo, width=400)
 
 with illustration:
     st.image("assets/illustration.png", use_container_width=True)

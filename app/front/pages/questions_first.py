@@ -91,7 +91,59 @@ st.markdown("""
             border-radius: 8px !important;
             padding: 8px 24px !important;
             font-size: 16px !important;
-        }    
+        }
+        @media screen and (max-width: 400px) {
+            h1.title {
+                font-size: 24px !important;
+                padding: 0 10px;
+            }
+
+            .barre{
+                width:100% !important;
+            }
+
+            .question-container {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                margin-top: 20px;
+                padding: 16px !important;
+                box-shadow: none !important;
+            }
+
+            .question-button {
+                font-size: 14px !important;
+                padding: 10px !important;
+            }
+
+            .chat-bot, .chat-user {
+                font-size: 14px !important;
+                padding: 8px !important;
+            }
+
+            .response-box {
+                font-size: 14px !important;
+            }
+
+            img {
+                display: none !important;
+            }
+
+            .stTextInput>div>div>input {
+                font-size: 14px !important;
+                padding: 10px !important;
+            }
+
+            button {
+                font-size: 14px !important;
+                padding: 8px 16px !important;
+            }
+            .chatting{
+                font-size: 9px;
+
+            }
+        }
+
         
     </style>
 """, unsafe_allow_html=True)
@@ -135,10 +187,10 @@ index = st.session_state.question_index
 st.markdown("<div class='question-container'>", unsafe_allow_html=True)
 
 # Barre de progression
-progress_percentage = int((index / len(questions)) * 100)
+progress_percentage = int((index  / len(questions)) * 100)
 st.markdown(f"""
     <div style='margin-bottom: 16px;'>
-        <div style='width: 38%; background-color: #E5E7EB; height: 10px; border-radius: 8px;'>
+        <div class='barre' style='width: 38%; background-color: #E5E7EB; height: 10px; border-radius: 8px;'>
             <div style='width: {progress_percentage}%; background-color: #FBBF24; height: 100%; border-radius: 8px;'></div>
         </div>
     </div>
@@ -155,8 +207,7 @@ if index < len(questions):
             st.session_state.question_index += 1
             st.rerun()
 else:
-    st.success("🎉 Merci pour tes réponses ! Voici les recommandations...")
-    st.markdown("<div class='response-box'><strong>Tes choix :</strong> " + ", ".join(st.session_state.reponses) + "</div>", unsafe_allow_html=True)
+    #st.success("🎉 Merci pour tes réponses ! Voici les recommandations...")
 
     generated = f"""
     le type d'activité que je préfère est : {st.session_state.reponses[0]}
@@ -173,16 +224,23 @@ else:
         st.session_state.rag_done = True
         st.rerun()
 
-    st.markdown("### 🤖 Proposition de l'IA :")
-    st.markdown(f"<div class='chat-bot'>{st.session_state.rag_response}</div>", unsafe_allow_html=True)
-
     st.markdown("---")
-    st.markdown("### 💬 Tu peux maintenant continuer la conversation avec le chatbot :")
+    #st.markdown("<h3 style='background-color:white; border-radius: 8px;'>Voila Notre proposition, Tu peux maintenant continuer la conversation avec le chatbot : </h1>" , unsafe_allow_html=True)
+    st.success("Voila Notre proposition, Tu peux maintenant continuer la conversation avec le chatbot :")
+   # for speaker, message in st.session_state.chat_history:
+    #    css_class = "chat-user" if speaker == "Vous" else "chat-bot"
+     #   st.markdown(f"<div class='{css_class}'><strong>{'👤' if speaker == 'Vous' else '🤖'} {speaker} :</strong> {message}</div>", unsafe_allow_html=True)
 
-    for speaker, message in st.session_state.chat_history:
-        css_class = "chat-user" if speaker == "Vous" else "chat-bot"
-        st.markdown(f"<div class='{css_class}'><strong>{'👤' if speaker == 'Vous' else '🤖'} {speaker} :</strong> {message}</div>", unsafe_allow_html=True)
-
+    chat_html = ""
+    if st.session_state.chat_history:
+        chat_html += "<div class='chatting' style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:600px; margin-bottom:20px;'>"
+        for speaker, message in st.session_state.chat_history:
+            if speaker == "Vous":
+                chat_html += f"<div style='background:#3B82F6; color:white; padding:10px 16px; border-radius:12px; text-align:right; margin-left:auto; margin-bottom:10px; max-width:90%;'>{message}</div>"
+            else:
+                chat_html += f"<div style='background:#FBBF24; color:black; padding:10px 16px; border-radius:12px; text-align:left; margin-right:auto; margin-bottom:10px; max-width:90%;'>{message}</div>"
+        chat_html += "</div>"
+    st.markdown(chat_html, unsafe_allow_html=True)
     user_input = st.text_input("Ta question :", "")
 
     if st.button("Envoyer") and user_input.strip():
@@ -194,7 +252,7 @@ else:
 st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("---")
-if st.button("🔄 Recommencer depuis le début"):
+if st.button("🔄 Recommencer"):
     for key in ["question_index", "reponses", "rag_done", "rag_response", "chat_history"]:
         if key in st.session_state:
             del st.session_state[key]

@@ -9,42 +9,37 @@ class MatchingEngine:
     def __init__(self, vectorized_dataset_path: str):
         self.df = pd.read_pickle(vectorized_dataset_path)
         self.profil_vector = None
-        self.liked_metier = set()
-        self.disliked_metier = set()
         self.current_mode = "recommandation"  # par défaut
         
 
     def reset_profil(self):
         self.profil_vector = None
-        self.liked_metier.clear()
-        self.disliked_metier.clear()
         print("🔄 Profil utilisateur réinitialisé")
         self.current_mode = "recommandation"
  
     def dislike_metier(self, metier_id: int):
-        print("idddddddd    ", metier_id)
-        self.disliked_metier.add(metier_id)
         nom = self.df[self.df["id"] == metier_id]['nom'].values[0]
         print(f"👎 Métier '{nom}' rejeté")
 
-    def like_metier(self, metier_id: int):
+    def like_metier(self, metier_id: int, liked_metier=[]):
         vecteur = np.array(self.df[self.df["id"] == metier_id]['vector'].values[0]).reshape(1, -1)
         if self.profil_vector is None:
             self.profil_vector = vecteur
         else:
-            total_likes = len(self.liked_metier)
+            total_likes = len(liked_metier)
             self.profil_vector = (self.profil_vector * total_likes + vecteur) / (total_likes + 1)
         #self.liked_metier.add(metier_id)
         nom = self.df[self.df["id"] == metier_id]['nom'].values[0]
         print(f"👍 Métier '{nom}' ajouté au profil")
 
-    def get_recommendations(self, top_k=5, exploration_prob=0.1, liked=[]):
+    def get_recommendations(self, top_k=5, exploration_prob=0.1, liked=[], disliked=[]):
         print("###################################")
-        liked_ids = list({m['id'] if isinstance(m, dict) else m.id for m in liked})
-        print("Métier déjà likés :", liked)
+        liked_ids = list({m['id'] for m in liked})
+        disliked_ids = list({m['id'] for m in disliked})
 
         # Exclure les métiers likés (et potentiellement d'autres)
-        excluded_metiers = liked_ids
+        excluded_metiers = liked_ids + disliked_ids
+        print("Métier déjà likés :", excluded_metiers)
         non_seen_df = self.df[~self.df['id'].isin(excluded_metiers)].copy()
 
         # Réinitialisation de l'index pour éviter les erreurs avec iloc

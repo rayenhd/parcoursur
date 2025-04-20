@@ -4,8 +4,15 @@ from typing import List, Tuple
 from langchain.prompts import PromptTemplate
 from langchain_huggingface import HuggingFaceEndpoint
 from backend.models.rag.query_rag import answer_question
+from openai import AzureOpenAI
+
+AZURE_API_KEY = "70vwwlq5J8a2CrqnMZVfxY83ztdx6Ahgor5y2WbUHtTBgOhuROIdJQQJ99BDAC5T7U2XJ3w3AAABACOGrF5i"
+AZURE_ENDPOINT = "https://oai-test-rg-test.openai.azure.com/"
+AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
+AZURE_API_VERSION = "2025-01-01-preview"
 
 
+"""""
 # === Configuration LLM
 llm = HuggingFaceEndpoint(
     repo_id="tiiuae/falcon-7b-instruct",
@@ -14,6 +21,14 @@ llm = HuggingFaceEndpoint(
     task="text-generation",
     huggingfacehub_api_token="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"
 )
+"""
+
+client = AzureOpenAI(
+    api_version=AZURE_API_VERSION,
+    azure_endpoint=AZURE_ENDPOINT,
+    api_key=AZURE_API_KEY
+)
+
 
 # === Prompt Template pour générer la prochaine question
 prompt_template = PromptTemplate.from_template("""
@@ -57,7 +72,7 @@ Réponds uniquement par la question, sans explication ni commentaire.
     if not lines:
         raise ValueError("Format de la réponse du LLM incorrect.")
     
-    return lines[0]
+    return response
 
 def generate_final_recommendation(history_pairs: List[Tuple[str, str]]) -> str:
     history_text = "\n".join([f"Q: {q}\nR: {r}" for q, r in history_pairs])
@@ -72,5 +87,13 @@ Explique brièvement pourquoi ces suggestions sont adaptées à la personne.
 Donne une réponse claire, bienveillante, professionnelle et directement exploitable.
 """
 
-    response = llm.invoke(prompt)
-    return response.strip()
+    response = client.chat.completions.create(
+        model=AZURE_DEPLOYMENT,
+        messages=[
+            {"role": "system", "content": "Tu es un assistant d’orientation scolaire bienveillant, drôle et clair."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7,
+        max_tokens=800
+    )
+    return response

@@ -23,3 +23,6 @@ accelerate
 sentence-transformers
 langchain-core
 langchain-community
+azure
+azure-core
+plotly

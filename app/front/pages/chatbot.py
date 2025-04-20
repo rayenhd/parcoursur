@@ -16,13 +16,24 @@ st.markdown("""
             background-color: #ffffff;
             color: #111827;
             font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
         }
+        
+        .stSpinner {
+            display: none !important;
+        }
+        
         .title {
             font-size: 32px;
             font-weight: bold;
             color: #1E3A8A;
             margin-top: 30px;
         }
+        
+        .st-emotion-cache-16tyu1 img{
+            max-width: none;    
+        }
+
         .subtitle {
             font-size: 18px;
             color: #3B82F6;
@@ -64,6 +75,48 @@ st.markdown("""
             padding: 8px 24px !important;
             font-size: 16px !important;
         }
+        
+        @media screen and (max-width: 400px) {
+            .stApp {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .chat-bubble {
+                padding: 10px 14px;
+            }
+
+            .user-msg, .bot-msg {
+                max-width: 100% !important;
+                font-size: 9px;
+            }
+            .chatting{
+                font-size: 9px;
+
+            }
+            .st-emotion-cache-16tyu1 img {
+                width: 100% !important;
+                height: auto !important;
+                left: 0% !important;
+            }
+
+            h1.title, h1 {
+                font-size: 24px !important;
+                text-align: center;
+            }
+
+            input[type="text"], textarea, .stTextInput>div>div>input {
+                font-size: 14px !important;
+                padding: 8px !important;
+            }
+
+            button {
+                width: 100% !important;
+                padding: 10px !important;
+                font-size: 14px !important;
+            }
+        }
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -74,9 +127,8 @@ if os.path.exists(illu_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     st.markdown(f"""
         <div style='position: relative; width: 100%; height: 280px;'>
-            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.4;'>
+            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: 120%; height: auto; left: 23%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.4;'>
             <div style='position: relative; z-index: 2; padding: 20px;'>
-                <img src='assets/logo.png' width='100'>
                 <h1 style='color:#1E3A8A;'>Chatbot d'orientation</h1>
             </div>
         </div>
@@ -91,7 +143,7 @@ st.markdown('', unsafe_allow_html=True)
 
 chat_html = ""
 if st.session_state.chat_history:
-    chat_html += "<div style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:600px; margin-bottom:20px;'>"
+    chat_html += "<div class='chatting' style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:600px; margin-bottom:20px;'>"
     for speaker, message in st.session_state.chat_history:
         if speaker == "Vous":
             chat_html += f"<div style='background:#3B82F6; color:white; padding:10px 16px; border-radius:12px; text-align:right; margin-left:auto; margin-bottom:10px; max-width:90%;'>👤 <b>{speaker}</b><br>{message}</div>"
@@ -101,7 +153,6 @@ if st.session_state.chat_history:
 st.markdown(chat_html, unsafe_allow_html=True)
 
 # Zone de texte
-st.markdown('<div class="subtitle">Pose ta question</div>', unsafe_allow_html=True)
 user_input = st.text_input("", placeholder="Tape ta question...")
 
 if st.button("Envoyer") and user_input.strip():

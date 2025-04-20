@@ -36,7 +36,7 @@ verbes = [
     "garantit", "filme", "interprète", "cultive", "régule", "soigne", "partage", "guide", "fait",
     "enregistre", "coupe", "taille", "construit", "écoute", "compose", "sensibilise", "taille",  "prospecte",
     "manipule", "accueille", "authentifie", "dépiste", "compose", "sensibilise", "écoute", "identifie", "construit",
-    "taille", "garnit", "oriente"
+    "taille", "garnit", "oriente", "préserve"
 ]
 
 

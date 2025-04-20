@@ -60,18 +60,22 @@ if "engine" not in st.session_state:
 if "last_action" not in st.session_state:
     st.session_state.last_action = None
 if "liked_metiers" not in st.session_state:
-    st.session_state.liked_metiers = set()
+    st.session_state.liked_metiers = []
 if "temp" not in st.session_state:
     st.session_state.temp = []
+if "current_metier" not in st.session_state:
+    st.session_state.current_metier = None
+if "disliked_metiers" not in st.session_state:
+    st.session_state.disliked_metiers = []
 
 engine = st.session_state.engine
 
 # Titre
-st.markdown("<h1 class='title'>🎯 Jobinder</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='title'>🎯 JobFinder</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Découvre ton futur métier !</p>", unsafe_allow_html=True)
 
 # Recommandation
-metiers = engine.get_recommendations(top_k=1, liked=st.session_state.temp[:-1])
+metiers = engine.get_recommendations(top_k=1, liked=st.session_state.liked_metiers, disliked=st.session_state.disliked_metiers)
 
 if len(metiers) == 0:
     st.success("✅ Tu as parcouru tous les métiers ! Tu peux réinitialiser le profil.")
@@ -84,6 +88,12 @@ else:
     metier = metiers.iloc[0]
     st.session_state.temp.append(metier)
 
+    print("éééééééééééééééééééééééééééééééééééé")
+    print("le nouveau métier est : ", st.session_state.temp)
+    print("éééééééééééééééééééééééééééééééééééé")
+    if len(st.session_state.temp) >= 2:
+        if st.session_state.temp[-1]['id'] == st.session_state.temp[-2]['id']:
+            st.rerun()
     # Chargement illustration
     image_path = "assets/jobinder_illu.png"
     if os.path.exists(image_path):
@@ -93,7 +103,7 @@ else:
         st.markdown(f"""
             <div style="position: relative; width: 100%; margin: auto;">
                 <img src="data:image/png;base64,{encoded_image}" style="width: 1200px; height: 70vh; border-radius: 12px; opacity:0.7">
-                <div class='fiche' style="position: absolute; width: 40%; height:100%; overflow:auto; top: 15%; left: 12%; right: 12%; background: none; padding: 12px;">
+                <div class='fiche' style="position: absolute; overflow:auto; width: 40%; height:70%; overflow:auto; top: 15%; left: 12%; right: 12%; background: none; padding: 12px;">
                     <h3 style="color:#1E3A8A; background-color: #ffffff">{metier['nom']}</h3>
                     <p style="margin: 0; background-color: #ffffff">{metier['description_detaillee']}</p>
                     <p style="margin: 0; background-color: #ffffff"><strong>Salaire :</strong> {metier['salaire_moyen']} €</p>
@@ -110,26 +120,28 @@ else:
     with col1:
         st.markdown('<div class="swipe-buttons dislike">', unsafe_allow_html=True)
         if st.button("👎 Je passe"):
-            if len(st.session_state.temp) >= 2:
-                dislike = st.session_state.temp[-2]
-                del st.session_state.temp[-2]
-                engine.dislike_metier(dislike['id'])
+            print("hello")
+            dislike = st.session_state.temp[-2]
+            #del st.session_state.temp[-2]
+            st.session_state.disliked_metiers.append(dislike)
+            #engine.dislike_metier(dislike['id'])
+            st.session_state.last_action = "pass"
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
         st.markdown('<div class="swipe-buttons like">', unsafe_allow_html=True)
         if st.button("👍 J'aime"):
-            if len(st.session_state.temp) >= 2:
-                temp = st.session_state.temp[-2]
-                engine.like_metier(temp['id'])
-                st.session_state.liked_metiers.add(temp['id'])
+            temp = st.session_state.temp[-2]
+            st.session_state.liked_metiers.append(temp)
+            engine.like_metier(temp['id'], liked_metier=st.session_state.liked_metiers)
+            st.session_state.last_action = "like"
         st.markdown('</div>', unsafe_allow_html=True)
 
 # Métiers aimés
 # Métiers aimés
 st.subheader("Métiers que vous aimez déjà")
 if st.session_state.liked_metiers:
-    temps = st.session_state.temp[:-1]
+    temps = st.session_state.liked_metiers
     for elem in temps:
         metier = engine.df[engine.df["id"] == elem["id"]].iloc[0]
         st.markdown(f"""
@@ -139,3 +151,7 @@ if st.session_state.liked_metiers:
         """, unsafe_allow_html=True)
 else:
     st.markdown("Aucun métier liké pour le moment.")
+
+
+
+# ajouter une div pour la liste avec un overflow auto
