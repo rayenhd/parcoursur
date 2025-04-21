@@ -29,3 +29,5 @@ plotly
 pillow
 scikit-learn
 plotly
+azure-storage-blob
+azure-mgmt-resource
