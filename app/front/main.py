@@ -87,7 +87,7 @@ with test2:
     st.markdown("""
     <div class="test-card">
         <div class="test-icon">💻</div>
-        <h4>Tu nesais pas par où commencer ?</h4>
+        <h4>Tu ne sais pas par où commencer ?</h4>
         <p>Nous allons te guider pas à pas en posant différentes questions.</p>
         <a href="/choix"><button class="cta-button" style="background-color:#60A5FA;">Commencer</button></a>
     </div>
