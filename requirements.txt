@@ -23,13 +23,11 @@ accelerate
 sentence-transformers
 langchain-core
 langchain-community
-azure
-azure-core
 plotly
 pillow
 scikit-learn
 plotly
-azure-storage-blob
-azure-mgmt-resource
 faiss-gpu
-azure-keyvault-secrets
+azure-storage-blob==12.19.0
+azure-mgmt-resource==23.1.0
+azure-keyvault-secrets==4.7.0
