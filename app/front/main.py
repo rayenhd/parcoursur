@@ -59,7 +59,7 @@ with titre:
     st.markdown('<a href="https://parcoursur.fr/"><button class="cta-button">Découvre nous</button></a>', unsafe_allow_html=True)
 
     # Logo
-    logo = Image.open("assets/logo_complet.png")
+    logo = Image.open("app/assets/logo_complet.png")
     st.image(logo, width=400)
 
 with illustration:
