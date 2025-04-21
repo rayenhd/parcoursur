@@ -3,7 +3,6 @@ langchain
 langchain-huggingface
 openai
 chromadb
-faiss
 faiss-cpu
 sentence-transformers
 google-cloud-storage
@@ -27,3 +26,8 @@ langchain-community
 azure
 azure-core
 plotly
+pillow
+scikit-learn
+plotly
+sklearn
+faiss
