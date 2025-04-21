@@ -3,11 +3,28 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+from google.cloud import storage
+from google.oauth2 import service_account
+import streamlit as st
+import pickle
+
 
 class MatchingEngine:
 
-    def __init__(self, vectorized_dataset_path: str):
-        self.df = pd.read_pickle(vectorized_dataset_path)
+    def __init__(self):
+        credentials = service_account.Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"]
+        )
+        client = storage.Client(credentials=credentials)
+        bucket = client.bucket("parcoursur_vectorized_data")
+        blob = bucket.blob("jobinder/metiers_vect.pkl")
+
+        # Téléchargement du fichier .pkl
+        data = blob.download_as_bytes()
+        self.df = pickle.loads(data)
+
+        self.profil_vector = None
+        self.current_mode = "recommandation"
         self.profil_vector = None
         self.current_mode = "recommandation"  # par défaut
         
@@ -60,10 +77,3 @@ class MatchingEngine:
             print("💡 Mode Recommandation activé")
             top_indices = sims.argsort()[::-1][:top_k]
             return non_seen_df.iloc[top_indices]
-
-# Exemple
-if __name__ == "__main__":
-    engine = MatchingEngine("vectorstore/jobinder/metiers_vect.pkl")
-    engine.reset_profil()
-    recommandations = engine.get_recommendations()
-    print(recommandations[['id', 'nom', 'description_detaillee']])

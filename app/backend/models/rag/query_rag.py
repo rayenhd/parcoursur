@@ -4,6 +4,10 @@ import faiss
 import pickle
 from typing import List
 from dotenv import load_dotenv
+from google.cloud import storage
+import tempfile
+from google.oauth2 import service_account
+import streamlit as st
 
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
@@ -19,22 +23,19 @@ from azure.core.credentials import AzureKeyCredential
 
 # === Chargement des variables d'environnement
 load_dotenv()
-HUGGINGFACE_TOKEN = "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"
 
 # === Configuration
 VECTORSTORE_DIR = "vectorstore/chunks/"
 EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 HUGGINGFACE_REPO = "OpenAssistant/oasst-sft-1-pythia-12b"  # ou HuggingFaceH4/zephyr-7b-beta
 USE_WEB_SEARCH = True
-AZURE_API_KEY = "70vwwlq5J8a2CrqnMZVfxY83ztdx6Ahgor5y2WbUHtTBgOhuROIdJQQJ99BDAC5T7U2XJ3w3AAABACOGrF5i"
-AZURE_ENDPOINT = "https://oai-test-rg-test.openai.azure.com/"
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
 AZURE_API_VERSION = "2025-01-01-preview"
 
 client = AzureOpenAI(
-    api_version=AZURE_API_VERSION,
-    azure_endpoint=AZURE_ENDPOINT,
-    api_key=AZURE_API_KEY
+    api_key=st.secrets["azure"]["AZURE_API_KEY"],
+    azure_endpoint=st.secrets["azure"]["AZURE_ENDPOINT"],
+    api_version=st.secrets["azure"]["AZURE_API_VERSION"]
 )
 
 """""
@@ -50,6 +51,11 @@ web_search_tool = DuckDuckGoSearchRun()
 
 # === Chargement des FAISS vectorstores
 # === Chargement des FAISS vectorstores
+
+bucket_name = "parcoursur_vectorized_data"
+prefix = "vectorstore/chunks"
+
+"""""
 def load_all_vectorstores() -> List[FAISS]:
     stores = []
     for name in os.listdir(VECTORSTORE_DIR):
@@ -67,11 +73,71 @@ def load_all_vectorstores() -> List[FAISS]:
         except Exception as e:
             print(f"❌ Erreur dans {name}: {e}")
     return stores
+"""
+
+def download_blob(bucket_name, source_blob_name, destination_file_name):
+    """Télécharge un fichier depuis GCS."""
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"]
+    )
+    client = storage.Client(credentials=credentials)
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(destination_file_name)
+
+def load_all_vectorstores(bucket_name, prefix):
+    """Charge tous les vectorstores depuis un bucket GCS."""
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"]
+    )
+    client = storage.Client(credentials=credentials)
+    #storage_client = storage.Client(credentials=credentials)
+    bucket = client.bucket(bucket_name)
+    blobs = bucket.list_blobs(prefix=prefix)
+
+    stores = []
+    temp_dir = tempfile.mkdtemp()
+
+    # Regrouper les fichiers par dossier
+    vectorstore_dirs = {}
+    for blob in blobs:
+        parts = blob.name.split('/')
+        if len(parts) >= 2:
+            dir_name = parts[1]
+            if dir_name not in vectorstore_dirs:
+                vectorstore_dirs[dir_name] = []
+            vectorstore_dirs[dir_name].append(blob)
+
+    for dir_name, blob_list in vectorstore_dirs.items():
+        local_dir = os.path.join(temp_dir, dir_name)
+        os.makedirs(local_dir, exist_ok=True)
+
+        # Télécharger les fichiers nécessaires
+        required_files = ["faiss_index.bin", "docstore.pkl", "id_mapping.pkl"]
+        for file_name in required_files:
+            blob_path = f"{prefix}/{dir_name}/{file_name}"
+            local_path = os.path.join(local_dir, file_name)
+            download_blob(bucket_name, blob_path, local_path)
+
+        # Charger le vectorstore
+        try:
+            index = faiss.read_index(os.path.join(local_dir, "faiss_index.bin"))
+            with open(os.path.join(local_dir, "docstore.pkl"), "rb") as f:
+                docstore = pickle.load(f)
+            with open(os.path.join(local_dir, "id_mapping.pkl"), "rb") as f:
+                id_map = pickle.load(f)
+            store = FAISS(index=index, docstore=docstore, index_to_docstore_id=id_map, embedding_function=embedding_model)
+            stores.append(store)
+        except Exception as e:
+            print(f"❌ Erreur dans {dir_name}: {e}")
+
+    return stores
 
 # === Recherche vectorielle
 def get_relevant_documents(query: str, k=5) -> List[Document]:
     docs = []
-    for store in load_all_vectorstores():
+    stores = load_all_vectorstores(bucket_name, prefix)
+    for store in stores:
         try:
             docs += store.similarity_search(query, k=k)
         except Exception as e:

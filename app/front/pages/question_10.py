@@ -202,8 +202,8 @@ if "q10_reco" not in st.session_state:
     st.session_state.q10_reco = None
 if "index_q" not in st.session_state:
     st.session_state.index_q = 0
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+if "qd_chat_history" not in st.session_state:
+    st.session_state.qd_chat_history = []
 
 # === Logique d'affichage ===
 index = st.session_state.index_q
@@ -267,11 +267,11 @@ else:
     #st.markdown("### 🔍 Recommandation personnalisée")
     #st.write(st.session_state.q10_reco)
 
-    st.session_state.chat_history = [("Bot", st.session_state.q10_final_reco)]
+    st.session_state.qd_chat_history = [("Bot", st.session_state.q10_final_reco)]
     chat_html = ""
-    if st.session_state.chat_history:
+    if st.session_state.qd_chat_history:
         chat_html += "<div class='chatting'  style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:800px; margin-bottom:20px;'>"
-        for speaker, message in st.session_state.chat_history:
+        for speaker, message in st.session_state.qd_chat_history:
             if speaker == "Vous":
                 chat_html += f"<div style='background:#3B82F6; color:white; padding:10px 16px; border-radius:12px; text-align:right; margin-left:auto; margin-bottom:10px; max-width:90%;'>{message}</div>"
             else:

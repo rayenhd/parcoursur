@@ -1,14 +1,41 @@
+import pickle
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from google.cloud import storage
+from google.oauth2 import service_account
+from io import StringIO  # Import correct de StringIO
 
 st.set_page_config(page_title="Dashboard Métiers & Formations", layout="wide")
 
 # Chargement des données avec cache
 @st.cache_data
+
+
+
+
 def load_data():
-    metiers = pd.read_csv('data/cleaned/cleaned_metiers.csv')
-    formations = pd.read_csv('data/cleaned/cleaned_formations.csv')
+
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"]
+    )
+    client = storage.Client(credentials=credentials)
+    bucket = client.bucket("parcoursur_data")
+    metiers_blob = bucket.blob("cleaned/cleaned_metiers.csv")
+    formations_blob = bucket.blob("cleaned/cleaned_formations.csv")
+
+
+    # Téléchargement du contenu des fichiers CSV
+    metiers_data = metiers_blob.download_as_text()
+    formations_data = formations_blob.download_as_text()
+
+    # Lecture des données CSV à l'aide de StringIO
+    metiers = pd.read_csv(StringIO(metiers_data))
+    formations = pd.read_csv(StringIO(formations_data))
+
+
+    #metiers = pd.read_csv('data/cleaned/cleaned_metiers.csv')
+    #formations = pd.read_csv('data/cleaned/cleaned_formations.csv')
     return metiers, formations
 
 metiers, formations = load_data()

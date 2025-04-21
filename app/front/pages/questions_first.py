@@ -169,8 +169,8 @@ if "reponses" not in st.session_state:
     st.session_state.reponses = []
 if "rag_response" not in st.session_state:
     st.session_state.rag_response = None
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+if "qf_chat_history" not in st.session_state:
+    st.session_state.qf_chat_history = []
 if "rag_done" not in st.session_state:
     st.session_state.rag_done = False
 
@@ -220,21 +220,21 @@ else:
     if not st.session_state.rag_done:
         rag_answer = answer_question(generated)
         st.session_state.rag_response = rag_answer
-        st.session_state.chat_history = [("Bot", rag_answer)]
+        st.session_state.qf_chat_history = [("Bot", rag_answer)]
         st.session_state.rag_done = True
         st.rerun()
 
     st.markdown("---")
     #st.markdown("<h3 style='background-color:white; border-radius: 8px;'>Voila Notre proposition, Tu peux maintenant continuer la conversation avec le chatbot : </h1>" , unsafe_allow_html=True)
     st.success("Voila Notre proposition, Tu peux maintenant continuer la conversation avec le chatbot :")
-   # for speaker, message in st.session_state.chat_history:
+   # for speaker, message in st.session_state.qf_chat_history:
     #    css_class = "chat-user" if speaker == "Vous" else "chat-bot"
      #   st.markdown(f"<div class='{css_class}'><strong>{'👤' if speaker == 'Vous' else '🤖'} {speaker} :</strong> {message}</div>", unsafe_allow_html=True)
 
     chat_html = ""
-    if st.session_state.chat_history:
-        chat_html += "<div class='chatting' style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:600px; margin-bottom:20px;'>"
-        for speaker, message in st.session_state.chat_history:
+    if st.session_state.qf_chat_history:
+        chat_html += "<div class='chatting' style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:100%; margin-bottom:20px;'>"
+        for speaker, message in st.session_state.qf_chat_history:
             if speaker == "Vous":
                 chat_html += f"<div style='background:#3B82F6; color:white; padding:10px 16px; border-radius:12px; text-align:right; margin-left:auto; margin-bottom:10px; max-width:90%;'>{message}</div>"
             else:
@@ -244,16 +244,16 @@ else:
     user_input = st.text_input("Ta question :", "")
 
     if st.button("Envoyer") and user_input.strip():
-        st.session_state.chat_history.append(("Vous", user_input))
+        st.session_state.qf_chat_history.append(("Vous", user_input))
         response = answer_question(user_input)
-        st.session_state.chat_history.append(("Bot", response))
+        st.session_state.qf_chat_history.append(("Bot", response))
         st.rerun()
 
 st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("---")
 if st.button("🔄 Recommencer"):
-    for key in ["question_index", "reponses", "rag_done", "rag_response", "chat_history"]:
+    for key in ["question_index", "reponses", "rag_done", "rag_response", "qf_chat_history"]:
         if key in st.session_state:
             del st.session_state[key]
     st.rerun()

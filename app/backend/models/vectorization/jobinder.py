@@ -29,11 +29,3 @@ class MetierVectorizer:
     def save_vectors(self, output_path: str):
         self.df.to_pickle(output_path)
         print(f"💾 Vecteurs sauvegardés dans {output_path}")
-
-# Exemple d'utilisation
-if __name__ == "__main__":
-    vectorizer = MetierVectorizer(csv_path="data/cleaned/cleaned_metiers_jobinder.csv")
-    vectorizer.load_data()
-    vectorizer.vectorize_metiers()
-    vectorizer.save_vectors("vectorstore/jobinder/metiers_vect.pkl")
-

@@ -55,7 +55,7 @@ st.markdown("""
 
 # Initialisation du moteur et des variables d'état
 if "engine" not in st.session_state:
-    st.session_state.engine = MatchingEngine("vectorstore/jobinder/metiers_vect.pkl")
+    st.session_state.engine = MatchingEngine()
     st.session_state.engine.reset_profil()
 if "last_action" not in st.session_state:
     st.session_state.last_action = None

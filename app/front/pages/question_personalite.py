@@ -212,8 +212,8 @@ if "q30_response" not in st.session_state:
     st.session_state.q30_response = None
 if "q30_chat" not in st.session_state:
     st.session_state.q30_chat = []
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+if "q30_chat_history" not in st.session_state:
+    st.session_state.q30_chat_history = []
 
 index = st.session_state.q30_index
 
@@ -237,7 +237,7 @@ else:
             question_pour_ia += f"{i}. {q} : {r}\n"
         question_pour_ia += "\nJe veux avant tout que tu me donnes mon résultat au Test Riasec, ensuite, Peux-tu me proposer 3 secteurs d’activité dans lesquels je pourrais m’épanouir, avec 2 métiers par secteur (connus et moins connus) ? Donne la réponse directement sans me poser de questions."
         rag_response = answer_question(question_pour_ia)
-        st.session_state.chat_history = [("Bot", rag_response)]
+        st.session_state.q30_chat_history = [("Bot", rag_response)]
         st.session_state.q30_response = rag_response
         st.session_state.q30_chat.append(("Bot", rag_response))
         st.rerun()
@@ -245,9 +245,9 @@ else:
     st.success("###   Voila les meilleurs métiers proposés par l'IA")
 
     chat_html = ""
-    if st.session_state.chat_history:
-        chat_html += "<div class='chatting' style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:600px; margin-bottom:20px;'>"
-        for speaker, message in st.session_state.chat_history:
+    if st.session_state.q30_chat_history:
+        chat_html += "<div class='chatting' style='background:#E0F2FE; padding:20px; border-radius:16px; max-width:100%; margin-bottom:20px;'>"
+        for speaker, message in st.session_state.q30_chat_history:
             if speaker == "Vous":
                 chat_html += f"<div style='background:#3B82F6; color:white; padding:10px 16px; border-radius:12px; text-align:right; margin-left:auto; margin-bottom:10px; max-width:90%;'>{message}</div>"
             else:
@@ -257,9 +257,9 @@ else:
     user_input = st.text_input("Ta question :", "")
 
     if st.button("Envoyer") and user_input.strip():
-        st.session_state.chat_history.append(("Vous", user_input))
+        st.session_state.q30_chat_history.append(("Vous", user_input))
         response = answer_question(user_input)
-        st.session_state.chat_history.append(("Bot", response))
+        st.session_state.q30_chat_history.append(("Bot", response))
         st.rerun()
 
 st.markdown("---")
