@@ -158,49 +158,49 @@ questions = [
     "J’aime construire ou réparer des objets.",
     "J’aime travailler avec des outils ou des machines.",
     "Je préfère résoudre des problèmes pratiques.",
-#    "Je suis à l'aise dans les environnements extérieurs, par exemple en travaillant sur des installations industrielles.",
-#    "Je trouve satisfaisant de participer à des activités manuelles.",
-#    "Je préfère les tâches concrètes aux activités théoriques.",
-#    
-#    # Dimension Investigateur (I)
-#    "J’aime analyser des problèmes complexes et trouver des solutions.",
-#    "Je prends plaisir à comprendre comment fonctionnent les choses.",
-#    "Je suis passionné(e) par la recherche scientifique.",
-#    "J’aime résoudre des énigmes ou des puzzles.",
-#    "Je préfère étudier les phénomènes naturels et les lois scientifiques.",
-#    "J’aime explorer des idées à travers des expériences et des simulations.",
-#    
-#    # Dimension Artistique (A)
-#    "J’aime exprimer ma créativité à travers l’art ou la musique.",
-#    "J’apprécie créer ou imaginer des projets uniques.",
-#    "Je préfère les activités qui me permettent d’exprimer mes émotions.",
-#    "Je trouve gratifiant de travailler sur des projets artistiques.",
-#    "Je suis à l’aise dans des environnements non conventionnels, riches en expression créative.",
-#    "J’ai souvent des idées originales que j’aime partager avec les autres.",
-#    
-#    # Dimension Social (S)
-#    "J’aime aider les autres à résoudre leurs problèmes.",
-#    "Je suis à l’aise pour parler en public.",
-#    "Je trouve gratifiant d’accompagner et de soutenir les personnes.",
-#    "J’aime travailler en équipe et créer une dynamique collective.",
-#    "J’aime écouter et comprendre les besoins des autres.",
-#    "Je suis souvent sollicité(e) pour donner des conseils ou de l'assistance aux autres.",
-#    
-#    # Dimension Entreprenant (E)
-#    "J’aime persuader les autres et mener des projets.",
-#    "Je suis motivé(e) par des défis et des situations où je peux prendre des initiatives.",
-#    "J’aime organiser et diriger des activités de groupe.",
-#    "J’aime prendre des décisions rapides dans des situations de compétition.",
-#    "Je trouve stimulant de négocier ou de vendre des idées.",
-#    "Je suis à l’aise dans des environnements où l’autonomie et le leadership sont valorisés.",
-#    
-#    # Dimension Conventionnel (C)
-#    "J’aime organiser mes tâches et suivre des procédures claires.",
-#    "Je prends soin de respecter les règles et les normes établies.",
-#    "Je préfère travailler dans un cadre structuré et méthodique.",
-#    "J’aime les activités qui demandent rigueur et précision.",
-#    "Je suis à l’aise avec la gestion de données et l’utilisation d’outils bureautiques.",
-#    "J’apprécie travailler sur des tâches administratives ou logistiques."
+    "Je suis à l'aise dans les environnements extérieurs, par exemple en travaillant sur des installations industrielles.",
+    "Je trouve satisfaisant de participer à des activités manuelles.",
+    "Je préfère les tâches concrètes aux activités théoriques.",
+    
+    # Dimension Investigateur (I)
+    "J’aime analyser des problèmes complexes et trouver des solutions.",
+    "Je prends plaisir à comprendre comment fonctionnent les choses.",
+    "Je suis passionné(e) par la recherche scientifique.",
+    "J’aime résoudre des énigmes ou des puzzles.",
+    "Je préfère étudier les phénomènes naturels et les lois scientifiques.",
+    "J’aime explorer des idées à travers des expériences et des simulations.",
+    
+    # Dimension Artistique (A)
+    "J’aime exprimer ma créativité à travers l’art ou la musique.",
+    "J’apprécie créer ou imaginer des projets uniques.",
+    "Je préfère les activités qui me permettent d’exprimer mes émotions.",
+    "Je trouve gratifiant de travailler sur des projets artistiques.",
+    "Je suis à l’aise dans des environnements non conventionnels, riches en expression créative.",
+    "J’ai souvent des idées originales que j’aime partager avec les autres.",
+    
+    # Dimension Social (S)
+    "J’aime aider les autres à résoudre leurs problèmes.",
+    "Je suis à l’aise pour parler en public.",
+    "Je trouve gratifiant d’accompagner et de soutenir les personnes.",
+    "J’aime travailler en équipe et créer une dynamique collective.",
+    "J’aime écouter et comprendre les besoins des autres.",
+    "Je suis souvent sollicité(e) pour donner des conseils ou de l'assistance aux autres.",
+    
+    # Dimension Entreprenant (E)
+    "J’aime persuader les autres et mener des projets.",
+    "Je suis motivé(e) par des défis et des situations où je peux prendre des initiatives.",
+    "J’aime organiser et diriger des activités de groupe.",
+    "J’aime prendre des décisions rapides dans des situations de compétition.",
+    "Je trouve stimulant de négocier ou de vendre des idées.",
+    "Je suis à l’aise dans des environnements où l’autonomie et le leadership sont valorisés.",
+    
+    # Dimension Conventionnel (C)
+    "J’aime organiser mes tâches et suivre des procédures claires.",
+    "Je prends soin de respecter les règles et les normes établies.",
+    "Je préfère travailler dans un cadre structuré et méthodique.",
+    "J’aime les activités qui demandent rigueur et précision.",
+    "Je suis à l’aise avec la gestion de données et l’utilisation d’outils bureautiques.",
+    "J’apprécie travailler sur des tâches administratives ou logistiques."
 ]
 options = ["Pas d'accord", "Neutre", "D'accord"]
 
