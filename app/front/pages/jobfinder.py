@@ -48,8 +48,10 @@ st.markdown("""
             padding: 8px 24px !important;
             font-size: 16px !important;
         }
-        .titre{
-            font-size: 20px;
+        @media screen and (max-width: 400px) {
+            h4{
+                font-size: 5px;
+            }
         }
 
         
