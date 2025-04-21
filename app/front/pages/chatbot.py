@@ -121,7 +121,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Image de fond et titre par-dessus
-illu_path = os.path.abspath("assets/chatbot_illu.png")
+illu_path = os.path.abspath("app/assets/chatbot_illu.png")
 if os.path.exists(illu_path):
     with open(illu_path, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode()

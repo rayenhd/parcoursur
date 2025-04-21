@@ -95,7 +95,7 @@ else:
         if st.session_state.temp[-1]['id'] == st.session_state.temp[-2]['id']:
             st.rerun()
     # Chargement illustration
-    image_path = "assets/jobinder_illu.png"
+    image_path = "app/assets/jobinder_illu.png"
     if os.path.exists(image_path):
         with open(image_path, "rb") as image_file:
             encoded_image = base64.b64encode(image_file.read()).decode()

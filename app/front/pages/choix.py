@@ -110,7 +110,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Affichage image de fond
-illu_path = "assets/illu_first.png"  # illustration utilisée
+illu_path = "app/assets/illu_first.png"  # illustration utilisée
 if os.path.exists(illu_path):
     with open(illu_path, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode()
