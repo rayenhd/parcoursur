@@ -63,7 +63,7 @@ with titre:
     st.image(logo, width=400)
 
 with illustration:
-    st.image("assets/illustration.png", use_container_width=True)
+    st.image("app/assets/illustration.png", use_container_width=True)
 
 # Section de sélection de tests
 st.markdown("""
