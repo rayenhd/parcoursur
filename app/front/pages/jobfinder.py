@@ -48,6 +48,9 @@ st.markdown("""
             padding: 8px 24px !important;
             font-size: 16px !important;
         }
+        .titre{
+            font-size: 20px;
+        }
 
         
     </style>
@@ -104,7 +107,7 @@ else:
             <div style="position: relative; width: 100%; margin: auto;">
                 <img src="data:image/png;base64,{encoded_image}" style="width: 1200px; height: 70vh; border-radius: 12px; opacity:0.7">
                 <div class='fiche' style="position: absolute; overflow:auto; width: 40%; height:70%; overflow:auto; top: 15%; left: 12%; right: 12%; background: none; padding: 12px;">
-                    <h3 style="color:#1E3A8A; background-color: #ffffff">{metier['nom']}</h3>
+                    <h4 class='titre' style="color:#1E3A8A; background-color: #ffffff">{metier['nom']}</h3>
                     <p style="margin: 0; background-color: #ffffff">{metier['description_detaillee']}</p>
                     <p style="margin: 0; background-color: #ffffff"><strong>Salaire :</strong> {metier['salaire_moyen']} €</p>
                     <p style="margin: 0; background-color: #ffffff"><strong>Niveau :</strong> {metier['niveau_etude']}</p>
