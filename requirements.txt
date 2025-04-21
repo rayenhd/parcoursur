@@ -31,3 +31,5 @@ scikit-learn
 plotly
 azure-storage-blob
 azure-mgmt-resource
+faiss-gpu
+azure-keyvault-secrets
