@@ -29,5 +29,3 @@ plotly
 pillow
 scikit-learn
 plotly
-sklearn
-faiss
