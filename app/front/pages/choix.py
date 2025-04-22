@@ -130,21 +130,21 @@ st.markdown("""
     <div class="card">
         <h2>⏱️ 5 minutes</h2>
         <p>Un test express en 5 questions.</p>
-        <form action="/questions_first" method="get">
+        <form action="/questionnaire_5_minutes" method="get">
             <button type="submit">C'est parti</button>
         </form>
     </div>
     <div class="card">
         <h2>🕙 10 minutes</h2>
         <p>Un échange interactif pour mieux cerner ton profil.</p>
-        <form action="/question_10" method="get">
+        <form action="/questionnaire_10_minutes" method="get">
             <button type="submit">Je continue</button>
         </form>
     </div>
     <div class="card">
         <h2>🧩 30 minutes</h2>
         <p>Un test de personnalité complet basé sur le modèle RIASEC.</p>
-        <form action="/question_personalite" method="get">
+        <form action="/questionnaire_personalite" method="get">
             <button type="submit">Je veux tout savoir</button>
         </form>
     </div>

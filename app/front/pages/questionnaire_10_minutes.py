@@ -20,6 +20,7 @@ st.markdown("""
         body{
             overflow-x: hidden;
         }
+        /*
         
         .st-b7{
             background-color: transparent;
@@ -94,14 +95,6 @@ st.markdown("""
         .stButton.st-emotion-cache-8atqhb.e1mlolmg0{
             height: 40vh;
         }
-        
-        button{
-            position: absolute;
-            top:100%;
-            /*left: -22%;*/
-            background-color: #BFDBFE !important;
-            color: white !important;
-        }
 
         .stTextInput input{
             background-color: #BFDBFE !important;
@@ -114,6 +107,12 @@ st.markdown("""
             left: -4%;
         }
 
+        */
+        button{
+            background-color: #BFDBFE !important;
+            color: white !important;
+        }    
+        
         @media screen and (max-width: 400px) {
             h1.title {
                 font-size: 24px !important;
@@ -183,7 +182,7 @@ if os.path.exists(illu_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     st.markdown(f"""
         <div style='position: absolute; width: 100%; height: 280px;'>
-            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.7;'>
+            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.4;'>
             <div style='position: absolute; z-index: 2; padding: 20px;'>
             </div>
         </div>
@@ -212,14 +211,14 @@ st.markdown("<div class='question-box'>", unsafe_allow_html=True)
 progress_percentage = int((index / 3) * 100)
 st.markdown(f"""
     <div style='margin-bottom: 16px;'>
-        <div  class='barre' style='width: 78%; background-color: #E5E7EB; height: 10px; border-radius: 8px; left:-25%; position: absolute;'>
+        <div  class='barre' style='width: 78%; background-color:  #150e60; height: 10px; border-radius: 8px; left:-0%; position: absolute;'>
             <div style='width: {progress_percentage}%; background-color: #FBBF24; height: 100%; border-radius: 8px;'></div>
         </div>
     </div>
 """, unsafe_allow_html=True)
 if not st.session_state.q10_complete:
-    st.markdown(f"""<div style=' text-align: center; top:25%; left: -25%; position: absolute; overflow: auto; width: 80% ; height: 40vh;' class='question'> 
-                <p class='aaaa' style='margin-top:20px;'> {st.session_state.q10_current_question} </p>
+    st.markdown(f"""<div style=' text-align: center; top:25%; left: 0%; overflow: auto; width: 80% ; height: 40vh;' class='question'> 
+                <p class='aaaa' style='margin-top:20px; font-size:100%;'> {st.session_state.q10_current_question} </p>
     </div><div>
     """, unsafe_allow_html=True)
     st.markdown("<div>", unsafe_allow_html=True)
@@ -262,7 +261,6 @@ else:
         """
         #qa_pairs = [f"Q: {q}\nR: {r}" for q, r in st.session_state.q10_history]
         st.session_state.q10_reco = answer_question(question)
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
     #st.markdown("### 🔍 Recommandation personnalisée")
     #st.write(st.session_state.q10_reco)

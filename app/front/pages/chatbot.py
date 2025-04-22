@@ -75,7 +75,20 @@ st.markdown("""
             padding: 8px 24px !important;
             font-size: 16px !important;
         }
+        /*
+        .stElementContainer.element-container.st-emotion-cache-kj6hex.eu6p4el1{
+            display: none;
+        }
+            
+        .stElementContainer.element-container.st-emotion-cache-kj6hex.eu6p4el1:first-child{
+
+            display:none;    
+        }
+        .stElementContainer.element-container.st-emotion-cache-kj6hex.eu6p4el1{
+            height: 10vh;
+        }
         
+        */
         @media screen and (max-width: 400px) {
             .stApp {
                 padding-left: 10px;
@@ -100,6 +113,13 @@ st.markdown("""
                 left: 0% !important;
             }
 
+            /*
+            .st-emotion-cache-16tyu1:first-child{
+                width: 30% !important;
+                height: auto !important;
+                left: 0% !important;
+            }
+
             h1.title, h1 {
                 font-size: 24px !important;
                 text-align: center;
@@ -119,6 +139,16 @@ st.markdown("""
 
     </style>
 """, unsafe_allow_html=True)
+
+# Image de fond et titre par-dessus
+#logo_path = os.path.abspath("assets/logo_complet.png")
+#if os.path.exists(logo_path):
+#    with open(logo_path, "rb") as image_file:
+#        encoded_string = base64.b64encode(image_file.read()).decode()
+#    st.markdown(f"""
+#        <a href='.'>
+#        <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: 30%; height: auto; left: -1%; top:-30%; object-fit: cover; border-radius: 16px; opacity: 0.8;'> </a>
+#    """, unsafe_allow_html=True)
 
 # Image de fond et titre par-dessus
 illu_path = os.path.abspath("app/assets/chatbot_illu.png")

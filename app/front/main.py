@@ -99,7 +99,7 @@ with test3:
         <div class="test-icon">🧠</div>
         <h4>Tu veux découvrir de nouveaux métiers ?</h4>
         <p>Découvre notre plateforme qui t'aidera à trouver ton futur métier !</p>
-        <a href="/jobinder"><button class="cta-button" style="background-color:#FBBF24; color:black;">Commencer</button></a>
+        <a href="/jobfinder"><button class="cta-button" style="background-color:#FBBF24; color:black;">Commencer</button></a>
     </div>
     """, unsafe_allow_html=True)
 
