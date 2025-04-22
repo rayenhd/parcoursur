@@ -78,7 +78,7 @@ with test1:
     <div class="test-card">
         <div class="test-icon">⏱️</div>
         <h4>Tu as déja une idée de ce que tu veux ?</h4>
-        <p>Utilise notre chatbot afin de t'aiguiller au mieux</p>
+        <p>Utilise notre chatbot afin de t'aiguiller au mieux dans tes choix d'avenir !</p>
         <a href="/chatbot"><button class="cta-button" style="background-color:#3B82F6;">Commencer</button></a>
     </div>
     """, unsafe_allow_html=True)
