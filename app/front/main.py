@@ -77,7 +77,7 @@ with test1:
     st.markdown("""
     <div class="test-card">
         <div class="test-icon">⏱️</div>
-        <h4>Tu sais déjà ce que tu veux ?</h4>
+        <h4>Tu as déja une idée de ce que tu veux ?</h4>
         <p>Utilise notre chatbot afin de t'aiguiller au mieux</p>
         <a href="/chatbot"><button class="cta-button" style="background-color:#3B82F6;">Commencer</button></a>
     </div>
