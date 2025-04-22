@@ -57,7 +57,7 @@ Voici les échanges précédents :
 
 Pose-moi une nouvelle question (courte, claire, adaptée à un jeune) pour continuer à mieux cerner ma personnalité et mes préférences professionnelles.
 
-Réponds uniquement par la question, sans explication ni commentaire.
+Réponds uniquement par la question, sans explication ni commentaire. Il ne faut pas que ça soit trop long et ça doit tenir sur une ligne.
 """.strip()
 
     # Appel au LLM
