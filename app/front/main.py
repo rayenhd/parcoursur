@@ -15,10 +15,10 @@ st.markdown("""
         .stApp {
             background-color: #ffffff;
             color: #111827;
+            font-weight: 1000;
         }
         .title {
             font-size: 42px;
-            font-weight: bold;
             color: #150e60;
             margin-top: 40px;
         }
@@ -77,8 +77,8 @@ with test1:
     st.markdown("""
     <div class="test-card">
         <div class="test-icon">⏱️</div>
-        <h4>Tu as déja une idée de ce que tu veux ?</h4>
-        <p>Utilise notre chatbot afin de t'aiguiller au mieux dans tes choix d'avenir !</p>
+        <h4>Tu sais déjà ce que tu veux ?</h4>
+        <p>Utilise notre chatbot afin de t'aiguiller au mieux</p>
         <a href="/chatbot"><button class="cta-button" style="background-color:#3B82F6;">Commencer</button></a>
     </div>
     """, unsafe_allow_html=True)
@@ -87,7 +87,7 @@ with test2:
     st.markdown("""
     <div class="test-card">
         <div class="test-icon">💻</div>
-        <h4>Tu ne sais pas par où commencer ?</h4>
+        <h4>Tu ne pas par où commencer ?</h4>
         <p>Nous allons te guider pas à pas en posant différentes questions.</p>
         <a href="/choix"><button class="cta-button" style="background-color:#60A5FA;">Commencer</button></a>
     </div>

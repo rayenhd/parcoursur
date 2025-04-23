@@ -166,7 +166,6 @@ Voici des documents pertinents :
 
 """)
 
-
 # === Modèle Hugging Face
 #llm = HuggingFaceEndpoint(
  #   repo_id=HUGGINGFACE_REPO,
@@ -208,7 +207,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
             {"role": "user", "content": prompt}
         ],
         temperature=0.7,
-        max_tokens=800
+        max_tokens=1200
     )
 
     #response = llm.invoke(

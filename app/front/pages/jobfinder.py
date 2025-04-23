@@ -48,11 +48,6 @@ st.markdown("""
             padding: 8px 24px !important;
             font-size: 16px !important;
         }
-        @media screen and (max-width: 400px) {
-            h4{
-                font-size: 5px;
-            }
-        }
 
         
     </style>
@@ -93,11 +88,12 @@ else:
     metier = metiers.iloc[0]
     st.session_state.temp.append(metier)
 
-    print("éééééééééééééééééééééééééééééééééééé")
-    print("le nouveau métier est : ", st.session_state.temp)
-    print("éééééééééééééééééééééééééééééééééééé")
+    #print("éééééééééééééééééééééééééééééééééééé")
+    #print("le nouveau métier est : ", st.session_state.temp)
+    #print("éééééééééééééééééééééééééééééééééééé")
     if len(st.session_state.temp) >= 2:
         if st.session_state.temp[-1]['id'] == st.session_state.temp[-2]['id']:
+            del st.session_state.temp[-1]
             st.rerun()
     # Chargement illustration
     image_path = "app/assets/jobinder_illu.png"
@@ -109,7 +105,7 @@ else:
             <div style="position: relative; width: 100%; margin: auto;">
                 <img src="data:image/png;base64,{encoded_image}" style="width: 1200px; height: 70vh; border-radius: 12px; opacity:0.7">
                 <div class='fiche' style="position: absolute; overflow:auto; width: 40%; height:70%; overflow:auto; top: 15%; left: 12%; right: 12%; background: none; padding: 12px;">
-                    <h6 class='titre' style="color:#1E3A8A; background-color: #ffffff">{metier['nom']}</h3>
+                    <h3 style="color:#1E3A8A; background-color: #ffffff">{metier['nom']}</h3>
                     <p style="margin: 0; background-color: #ffffff">{metier['description_detaillee']}</p>
                     <p style="margin: 0; background-color: #ffffff"><strong>Salaire :</strong> {metier['salaire_moyen']} €</p>
                     <p style="margin: 0; background-color: #ffffff"><strong>Niveau :</strong> {metier['niveau_etude']}</p>
@@ -125,7 +121,6 @@ else:
     with col1:
         st.markdown('<div class="swipe-buttons dislike">', unsafe_allow_html=True)
         if st.button("👎 Je passe"):
-            print("hello")
             dislike = st.session_state.temp[-2]
             #del st.session_state.temp[-2]
             st.session_state.disliked_metiers.append(dislike)
