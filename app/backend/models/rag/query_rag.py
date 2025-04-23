@@ -151,7 +151,7 @@ Tu es un conseiller expert en orientation scolaire et professionnelle qui doit :
 - Répondre également avec humour mais toujours dans le respect
 - Utiliser un langage clair et facile à comprendre
 - Prendre en compte les attentes de l'utilisateur
-=Tu dois proposer 3 secteurs d'activités dans lequel pourrait se retrouver l'utilisateur, et 2 métiers par secteur en expliquant brièvement chaque métier.
+Tu dois proposer 3 secteurs d'activités dans lequel pourrait se retrouver l'utilisateur, et 2 métiers par secteur en expliquant brièvement chaque métier.
 Pour chaque métier, tu dois proposer un parcours scolaire adapté à suivre après le bac.
 Base toi uniquement sur les index fournis, si tu ne trouves pas la réponse, pose une question pour orienter l'utilisateur.
 
@@ -207,7 +207,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
             {"role": "user", "content": prompt}
         ],
         temperature=0.7,
-        max_tokens=800
+        max_tokens=1200
     )
 
     #response = llm.invoke(

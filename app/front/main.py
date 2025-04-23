@@ -15,10 +15,10 @@ st.markdown("""
         .stApp {
             background-color: #ffffff;
             color: #111827;
+            font-weight: 1000;
         }
         .title {
             font-size: 42px;
-            font-weight: bold;
             color: #150e60;
             margin-top: 40px;
         }

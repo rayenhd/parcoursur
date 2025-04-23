@@ -24,10 +24,7 @@ class MatchingEngine:
         self.df = pickle.loads(data)
 
         self.profil_vector = None
-        self.current_mode = "recommandation"
-        self.profil_vector = None
-        self.current_mode = "recommandation"  # par défaut
-        
+        self.current_mode = "recommandation"        
 
     def reset_profil(self):
         self.profil_vector = None

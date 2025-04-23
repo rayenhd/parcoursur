@@ -25,7 +25,7 @@ st.markdown("""
         
         .title {
             font-size: 32px;
-            font-weight: bold;
+            font-weight: 1000;
             color: #1E3A8A;
             margin-top: 30px;
         }
@@ -157,9 +157,9 @@ if os.path.exists(illu_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     st.markdown(f"""
         <div style='position: relative; width: 100%; height: 280px;'>
-            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: 120%; height: auto; left: 23%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.4;'>
+            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: 120%; height: auto; left: 23%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.3;'>
             <div style='position: relative; z-index: 2; padding: 20px;'>
-                <h1 style='color:#1E3A8A;'>Chatbot d'orientation</h1>
+                <h1 style='color:#1E3A8A;'>CHATBOT <strong style='color:#f2ae19'> D'ORIENTATION </strong></h1>
             </div>
         </div>
     """, unsafe_allow_html=True)

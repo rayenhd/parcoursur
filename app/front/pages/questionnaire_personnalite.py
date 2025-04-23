@@ -19,7 +19,7 @@ st.markdown("""
         h1.title {
             font-size: 32px;
             font-weight: bold;
-            color: #1E3A8A;
+            color: #150e60;
             text-align: center;
             margin-top: 20px;
         }
@@ -84,8 +84,8 @@ st.markdown("""
             margin-top: 20px !important;
         }
         .stElementContainer button {
-            background-color: #E0F2FE !important;
-            color: #111827 !important;
+            background-color: #150e60 !important;
+            color: white !important;
             padding: 12px 16px !important;
             border-radius: 24px !important;
             font-size: 14px !important;
@@ -151,7 +151,7 @@ if os.path.exists(illu_path):
             </div>
         </div>
     """, unsafe_allow_html=True)
-st.markdown("<h1 class='title'>Test de personnalité</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='title'>TEST DE <strong style='color:#f2ae19'>PERSONNALITÉ </strong></h1>", unsafe_allow_html=True)
 
 questions = [
     # Dimension Réaliste (R)

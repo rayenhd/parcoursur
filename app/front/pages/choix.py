@@ -11,12 +11,12 @@ st.markdown("""
         .stApp {
             background-color: #ffffff;
             font-family: 'Segoe UI', sans-serif;
-            color: #1E3A8A;
+            color: #150e60;
         }
         h1.title {
             font-size: 32px;
             font-weight: bold;
-            color: #1E3A8A;
+            color: #150e60;
             text-align: center;
             margin-top: 20px;
         }
@@ -43,7 +43,7 @@ st.markdown("""
             margin: 10px 0 20px;
         }
         .card button {
-            background-color: #3B82F6;
+            background-color: #150e60;
             color: white;
             border: none;
             border-radius: 12px;
@@ -116,13 +116,13 @@ if os.path.exists(illu_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     st.markdown(f"""
         <div style='position: absolute; width: 100%; height: 280px;'>
-            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.7;'>
+            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.5;'>
             <div style='position: absolute; z-index: 2; padding: 20px;'>
             </div>
         </div>
     """, unsafe_allow_html=True)
 # Titre
-st.markdown("<h1 class='title'>Combien de temps as-tu devant toi ?</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='title'>COMBIEN DE <strong style='color:#f2ae19'>TEMPS</strong> AS-TU DEVANT TOI ?</h1>", unsafe_allow_html=True)
 
 # Bloc de sélection
 st.markdown("""
@@ -144,7 +144,7 @@ st.markdown("""
     <div class="card">
         <h2>🧩 30 minutes</h2>
         <p>Un test de personnalité complet basé sur le modèle RIASEC.</p>
-        <form action="/questionnaire_personalite" method="get">
+        <form action="/questionnaire_personnalite" method="get">
             <button type="submit">Je veux tout savoir</button>
         </form>
     </div>

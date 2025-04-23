@@ -19,7 +19,7 @@ st.markdown("""
         h1.title {
             font-size: 32px;
             font-weight: bold;
-            color: #1E3A8A;
+            color: #150e60;
             text-align: center;
             margin-top: 20px;
         }
@@ -35,7 +35,7 @@ st.markdown("""
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .question-button {
-            background-color: #E0F2FE;
+            background-color: #150e60;
             color: #111827;
             padding: 12px;
             border-radius: 12px;
@@ -85,7 +85,7 @@ st.markdown("""
             opacity: 0.2;
         }
         button {
-            background-color: #3B82F6 !important;
+            background-color: #150e60 !important;
             color: white !important;
             border: none !important;
             border-radius: 8px !important;
@@ -155,13 +155,13 @@ if os.path.exists(illu_path):
         encoded_string = base64.b64encode(image_file.read()).decode()
     st.markdown(f"""
         <div style='position: absolute; width: 100%; height: 280px;'>
-            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.7;'>
+            <img src='data:image/png;base64,{encoded_string}' style='position: absolute; width: auto; height: auto; left: 32%; top:-10%; object-fit: cover; border-radius: 16px; opacity: 0.4;'>
             <div style='position: absolute; z-index: 2; padding: 20px;'>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='title'>Questionnaire - 5 minutes</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='title'>QUESTIONNAIRE - <strong style='color:#f2ae19'>5 MINUTES</strong></h1>", unsafe_allow_html=True)
 
 if "question_index" not in st.session_state:
     st.session_state.question_index = 0

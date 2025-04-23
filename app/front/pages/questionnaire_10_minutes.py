@@ -32,7 +32,7 @@ st.markdown("""
             background-color: transparent;
         }
             
-        h1.title {
+        .title {
             font-size: 32px;
             font-weight: bold;
             color: #1E3A8A;
@@ -109,7 +109,7 @@ st.markdown("""
 
         */
         button{
-            background-color: #BFDBFE !important;
+            background-color: #150e60 !important;
             color: white !important;
         }    
         
@@ -188,7 +188,7 @@ if os.path.exists(illu_path):
         </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='title'>🕙 Questionnaire - 10 minutes</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='title' style='color: #150e60;'>QUESTIONNAIRE - <strong style='color:#f2ae19'>10 MINUTES </strong></h1>", unsafe_allow_html=True)
 
 # === Initialisation session ===
 if "q10_history" not in st.session_state:
@@ -218,7 +218,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 if not st.session_state.q10_complete:
     st.markdown(f"""<div style=' text-align: center; top:25%; left: 0%; overflow: auto; width: 80% ; height: 40vh;' class='question'> 
-                <p class='aaaa' style='margin-top:20px; font-size:100%;'> {st.session_state.q10_current_question} </p>
+                <p class='aaaa' style='margin-top:20px; font-size:100%;'> <strong> {st.session_state.q10_current_question} </strong></p>
     </div><div>
     """, unsafe_allow_html=True)
     st.markdown("<div>", unsafe_allow_html=True)

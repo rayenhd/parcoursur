@@ -88,11 +88,12 @@ else:
     metier = metiers.iloc[0]
     st.session_state.temp.append(metier)
 
-    print("éééééééééééééééééééééééééééééééééééé")
-    print("le nouveau métier est : ", st.session_state.temp)
-    print("éééééééééééééééééééééééééééééééééééé")
+    #print("éééééééééééééééééééééééééééééééééééé")
+    #print("le nouveau métier est : ", st.session_state.temp)
+    #print("éééééééééééééééééééééééééééééééééééé")
     if len(st.session_state.temp) >= 2:
         if st.session_state.temp[-1]['id'] == st.session_state.temp[-2]['id']:
+            del st.session_state.temp[-1]
             st.rerun()
     # Chargement illustration
     image_path = "assets/jobinder_illu.png"
@@ -120,7 +121,6 @@ else:
     with col1:
         st.markdown('<div class="swipe-buttons dislike">', unsafe_allow_html=True)
         if st.button("👎 Je passe"):
-            print("hello")
             dislike = st.session_state.temp[-2]
             #del st.session_state.temp[-2]
             st.session_state.disliked_metiers.append(dislike)
