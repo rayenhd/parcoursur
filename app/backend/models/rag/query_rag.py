@@ -16,6 +16,7 @@ from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.tools import DuckDuckGoSearchRun
+from langchain.embeddings import OpenAIEmbeddings
 import openai
 from openai import AzureOpenAI
 from azure.core.credentials import AzureKeyCredential
@@ -46,7 +47,7 @@ openai.api_key = AZURE_API_KEY
 """
 
 # === Initialisation des composants
-embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
+embedding_model = OpenAIEmbeddings(openai_api_key=st.secrets["azure"]["AZURE_API_KEY"])
 web_search_tool = DuckDuckGoSearchRun()
 
 # === Chargement des FAISS vectorstores
