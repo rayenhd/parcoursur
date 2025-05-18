@@ -44,8 +44,8 @@ client = AzureOpenAI(
 
 
 client = AzureOpenAI(
-    api_version="2024-11-20",
-    azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
+    api_version="2024-12-01-preview"",
+    azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview",
     api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO"
 )
 
