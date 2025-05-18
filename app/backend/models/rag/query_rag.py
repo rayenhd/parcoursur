@@ -32,12 +32,19 @@ HUGGINGFACE_REPO = "OpenAssistant/oasst-sft-1-pythia-12b"  # ou HuggingFaceH4/ze
 USE_WEB_SEARCH = True
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
 
+
+"""""
 client = AzureOpenAI(
     api_key=st.secrets["azure"]["AZURE_API_KEY"],
     azure_endpoint=st.secrets["azure"]["AZURE_ENDPOINT"],
     api_version=st.secrets["azure"]["AZURE_API_VERSION"]
 )
-
+"""
+client = AzureOpenAI(
+    api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
+    azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
+    api_version="2025-01-01-preview"
+)
 
 
 """""
