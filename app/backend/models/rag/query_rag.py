@@ -31,8 +31,6 @@ EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 HUGGINGFACE_REPO = "OpenAssistant/oasst-sft-1-pythia-12b"  # ou HuggingFaceH4/zephyr-7b-beta
 USE_WEB_SEARCH = True
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
-AZURE_API_VERSION = "2025-01-01-preview"
-
 
 client = AzureOpenAI(
     api_key=st.secrets["azure"]["AZURE_API_KEY"],
@@ -50,8 +48,7 @@ openai.api_key = AZURE_API_KEY
 """
 
 # === Initialisation des composants
-# embedding_model = OpenAIEmbeddings(openai_api_key=st.secrets["azure"]["AZURE_API_KEY"])
-embedding_model = OpenAIEmbeddings(openai_api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO")
+embedding_model = OpenAIEmbeddings(openai_api_key=st.secrets["azure"]["AZURE_API_KEY"])
 web_search_tool = DuckDuckGoSearchRun()
 
 # === Chargement des FAISS vectorstores
