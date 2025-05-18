@@ -55,7 +55,7 @@ openai.api_key = AZURE_API_KEY
 """
 
 # === Initialisation des composants
-embedding_model = OpenAIEmbeddings(openai_api_key=st.secrets["azure"]["AZURE_API_KEY"])
+embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
 web_search_tool = DuckDuckGoSearchRun()
 
 # === Chargement des FAISS vectorstores
