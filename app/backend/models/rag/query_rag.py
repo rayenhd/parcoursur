@@ -45,8 +45,8 @@ client = AzureOpenAI(
 
 client = AzureOpenAI(
     api_version="2024-12-01-preview",
-    endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
-    credential=AzureKeyCredential("563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO")
+    azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
+    api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO"
 )
 
 """""
@@ -200,6 +200,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
         doc.page_content = "[Interne] " + doc.page_content
 
     web_docs = []
+    
     if use_web:
         web_docs = [Document(page_content="[Web] " + web_search_tool.run(question))]
 
