@@ -33,10 +33,20 @@ USE_WEB_SEARCH = True
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
 AZURE_API_VERSION = "2025-01-01-preview"
 
+
+"""""
 client = AzureOpenAI(
     api_key=st.secrets["azure"]["AZURE_API_KEY"],
     azure_endpoint=st.secrets["azure"]["AZURE_ENDPOINT"],
     api_version=st.secrets["azure"]["AZURE_API_VERSION"]
+)
+"""
+
+
+client = AzureOpenAI(
+    api_version="2024-12-01-preview",
+    endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
+    credential=AzureKeyCredential("563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO")
 )
 
 """""
