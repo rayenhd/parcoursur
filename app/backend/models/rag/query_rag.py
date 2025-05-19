@@ -147,6 +147,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
         history="\n".join(history[-5:]),
         context=context
     )
+    print("testttttttttttttt")
     print("✅ Azure client utilisé pour réponse :", client)
 
     response = client.chat.completions.create(
