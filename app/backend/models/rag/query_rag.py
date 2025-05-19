@@ -16,7 +16,6 @@ from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.tools import DuckDuckGoSearchRun
-import openai
 from openai import AzureOpenAI
 from azure.core.credentials import AzureKeyCredential
 from azure.identity  import DefaultAzureCredential, get_bearer_token_provider
@@ -67,13 +66,6 @@ except Exception as e:
     st.error("❌ Erreur lors de l’appel Azure OpenAI :")
     st.exception(e)
 
-
-"""""
-openai.api_type = "azure"
-openai.api_base = AZURE_ENDPOINT
-openai.api_version = AZURE_API_VERSION
-openai.api_key = AZURE_API_KEY
-"""
 
 # === Initialisation des composants
 embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
