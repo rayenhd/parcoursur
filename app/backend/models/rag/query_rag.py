@@ -44,7 +44,7 @@ client = AzureOpenAI(
 )
 
 # === Initialisation des modèles et outils
-#embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
+embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
 web_search_tool = DuckDuckGoSearchRun()
 
 # === GCS : téléchargement & chargement des vectorstores
@@ -139,6 +139,11 @@ history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
+    client = AzureOpenAI(
+        api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
+        azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
+        api_version=AZURE_API_VERSION
+    )
     print("Question posée :", question)
     history.append(f"Human: {question}")
 
