@@ -26,7 +26,7 @@ st.write("Ce test vérifie si l’appel à Azure OpenAI fonctionne bien sur Stre
 
 if st.button("📡 Tester Azure OpenAI"):
     try:
-        response = response = answer_question("testttt", uese_web=True)
+        response = response = answer_question("testttt", use_web=True)
 
     except Exception as e:
         st.error("❌ Erreur lors de l’appel à Azure OpenAI :")
