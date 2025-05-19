@@ -17,6 +17,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.tools import DuckDuckGoSearchRun
 from openai import AzureOpenAI
 st.set_page_config(page_title="Chatbot d'orientation", page_icon="🤖")
+if "history" not in st.session_state:
+    st.session_state.history = []
 
 # === Configuration
 load_dotenv()
@@ -114,7 +116,7 @@ Pour chaque métier, tu dois proposer un parcours scolaire adapté à suivre apr
 Base-toi uniquement sur les index fournis. Si tu ne trouves pas la réponse, pose une question pour orienter l'utilisateur.
 
 Voici l'historique de la conversation :
-{history}
+{st.session_state.history}
 
 Nouvelle question de l'utilisateur :
 {input}
@@ -124,13 +126,13 @@ Voici des documents pertinents :
 """)
 
 # === Historique simplifié
-history = []
+st.session_state.history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
 
     print("Question posée :", question)
-    history.append(f"Human: {question}")
+    st.session_state.history.append(f"Human: {question}")
 
     internal_docs = get_relevant_documents(question)
     for doc in internal_docs:
@@ -144,7 +146,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
 
     prompt = prompt_template.format(
         input=question,
-        history="\n".join(history[-5:]),
+        history="\n".join(st.session_state.history[-5:]),
         context=context
     )
     
@@ -160,7 +162,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
     )
 
     answer = response.choices[0].message.content.strip()
-    history.append(f"AI: {answer}")
+    st.session_state.history.append(f"AI: {answer}")
     return answer
 
 
