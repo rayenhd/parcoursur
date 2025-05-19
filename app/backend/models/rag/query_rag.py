@@ -165,20 +165,6 @@ def answer_question(question: str, use_web: bool = False) -> str:
     return answer
 
     """
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "Tu es un assistant très utile."},
-                {"role": "user", "content": "Dis bonjour en français."}
-            ]
-        )
-        return response
-        st.success("✅ Réponse Azure OpenAI :")
-        st.write(response.choices[0].message.content)
-
-    except Exception as e:
-        st.error("❌ Erreur lors de l’appel à Azure OpenAI :")
-        st.exception(e)
+    return 'hello'
     
     
