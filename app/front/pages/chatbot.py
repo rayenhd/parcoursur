@@ -16,18 +16,8 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.tools import DuckDuckGoSearchRun
 from openai import AzureOpenAI
-"""""
-from langchain.embeddings import OpenAIEmbeddings
+st.set_page_config(page_title="Chatbot d'orientation", page_icon="🤖")
 
-embedding_model = OpenAIEmbeddings(
-    openai_api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
-    openai_api_base="https://TON_ENDPOINT.cognitiveservices.azure.com/",
-    openai_api_type="azure",
-    openai_api_version="2025-01-01-preview",
-    deployment="embedding-parcoursur"  # ⚠️ NOM EXACT du déploiement Azure
-)
-
-"""
 # === Configuration
 load_dotenv()
 VECTORSTORE_DIR = "vectorstore/chunks/"
@@ -184,7 +174,6 @@ import streamlit as st
 from PIL import Image
 import base64
 
-st.set_page_config(page_title="Chatbot d'orientation", page_icon="🤖")
 
 # CSS personnalisé pour ressembler à l'illustration
 st.markdown("""
