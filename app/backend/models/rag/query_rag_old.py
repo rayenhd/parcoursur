@@ -188,7 +188,7 @@ Voici des documents pertinents :
 history = []
 
 # === Fonction principale
-def answer_question(question: str, use_web: bool = False) -> str:
+def answer_question(question: str, use_web: bool = False, client=client) -> str:
     print("la question est :     ", question)
     history.append(f"Human: {question}")
 
