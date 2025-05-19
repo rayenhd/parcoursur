@@ -54,7 +54,7 @@ st.markdown("""
 titre, illustration = st.columns([1, 1])
 
 with titre:
-    st.markdown("<div class='title'>DIRECTION LA <strong style='color: #f2ae19'>RÉUSSITEssssss !</strong></div>", unsafe_allow_html=True)
+    st.markdown("<div class='title'>DIRECTION LA <strong style='color: #f2ae19'>RÉUSSITE !</strong></div>", unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Une IA bienveillante pour guider ton avenir scolaire et professionnel.</div>', unsafe_allow_html=True)
     st.markdown('<a href="https://parcoursur.fr/"><button class="cta-button">Découvre nous</button></a>', unsafe_allow_html=True)
 
