@@ -126,7 +126,7 @@ Voici des documents pertinents :
 """)
 
 # === Historique simplifié
-st.session_state.history = []
+#st.session_state.history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
