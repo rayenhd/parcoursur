@@ -5,23 +5,14 @@ from langchain.prompts import PromptTemplate
 from langchain_huggingface import HuggingFaceEndpoint
 from backend.models.rag.query_rag import answer_question
 from openai import AzureOpenAI
+import streamlit as st
 
-AZURE_API_KEY = "70vwwlq5J8a2CrqnMZVfxY83ztdx6Ahgor5y2WbUHtTBgOhuROIdJQQJ99BDAC5T7U2XJ3w3AAABACOGrF5i"
-AZURE_ENDPOINT = "https://oai-test-rg-test.openai.azure.com/"
+AZURE_API_KEY = st.secrets["AZURE_API_KEY"]
+AZURE_ENDPOINT = st.secrets["AZURE_ENDPOINT"]
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
-AZURE_API_VERSION = "2025-01-01-preview"
+AZURE_API_VERSION = st.secrets["AZURE_API_VERSION"]
 
 
-"""""
-# === Configuration LLM
-llm = HuggingFaceEndpoint(
-    repo_id="tiiuae/falcon-7b-instruct",
-    temperature=0.4,
-    max_new_tokens=256,
-    task="text-generation",
-    huggingfacehub_api_token="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"
-)
-"""
 
 client = AzureOpenAI(
     api_version=AZURE_API_VERSION,

@@ -24,13 +24,12 @@ VECTORSTORE_DIR = "vectorstore/chunks/"
 EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 USE_WEB_SEARCH = True
 AZURE_DEPLOYMENT = "gpt-4o"
-AZURE_API_VERSION = "2025-01-01-preview"
 
 # === AzureOpenAI Client (clé en dur pour les tests)
 client = AzureOpenAI(
     api_key=st.secrets["AZURE_API_KEY"],
     azure_endpoint=st.secrets["AZURE_ENDPOINT"],
-    api_version=AZURE_API_VERSION
+    api_version=st.secrets["AZURE_API_VERSION"]
 )
 
 # === Initialisation des modèles et outils
