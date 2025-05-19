@@ -34,5 +34,5 @@ if st.button("📡 Tester Azure OpenAI"):
 
 # Diagnostic supplémentaire
 import os
-st.write("🔍 Variable OPENAI_API_KEY dans l’environnement :",st.secrets["OPENAI_API_KEY"])
-st.write("🔍 Variable OPENAI_API_BASE dans l’environnement :",st.secrets["OPENAI_API_KEY"])
+#st.write("🔍 Variable OPENAI_API_KEY dans l’environnement :",st.secrets["OPENAI_API_KEY"])
+#st.write("🔍 Variable OPENAI_API_BASE dans l’environnement :",st.secrets["OPENAI_API_KEY"])
