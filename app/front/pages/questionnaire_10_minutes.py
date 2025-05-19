@@ -128,9 +128,10 @@ history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
+    if "memory_history" not in st.session_state:
+        st.session_state.memory_history = []
 
-    print("Question posée :", question)
-    history.append(f"Human: {question}")
+    st.session_state.memory_history.append(f"Human: {question}")
 
     internal_docs = get_relevant_documents(question)
     for doc in internal_docs:
@@ -144,10 +145,9 @@ def answer_question(question: str, use_web: bool = False) -> str:
 
     prompt = prompt_template.format(
         input=question,
-        history="\n".join(history[-5:]),
+        history="\n".join(st.session_state.memory_history[-5:]),
         context=context
     )
-    
 
     response = client.chat.completions.create(
         model=AZURE_DEPLOYMENT,
@@ -160,8 +160,9 @@ def answer_question(question: str, use_web: bool = False) -> str:
     )
 
     answer = response.choices[0].message.content.strip()
-    history.append(f"AI: {answer}")
+    st.session_state.memory_history.append(f"AI: {answer}")
     return answer
+
 
 import streamlit as st
 import sys
