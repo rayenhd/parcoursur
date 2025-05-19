@@ -27,9 +27,9 @@ AZURE_DEPLOYMENT = "gpt-4o"
 
 # === AzureOpenAI Client (clé en dur pour les tests)
 client = AzureOpenAI(
-    api_key=st.secrets["AZURE_API_KEY"],
-    azure_endpoint=st.secrets["AZURE_ENDPOINT"],
-    api_version=st.secrets["AZURE_API_VERSION"]
+    api_key=st.secrets["azure"]["AZURE_API_KEY"],
+    azure_endpoint=st.secrets["azure"]["AZURE_ENDPOINT"],
+    api_version=st.secrets["azure"]["AZURE_API_VERSION"]
 )
 
 # === Initialisation des modèles et outils

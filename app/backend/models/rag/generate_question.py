@@ -7,10 +7,10 @@ from backend.models.rag.query_rag import answer_question
 from openai import AzureOpenAI
 import streamlit as st
 
-AZURE_API_KEY = st.secrets["AZURE_API_KEY"]
-AZURE_ENDPOINT = st.secrets["AZURE_ENDPOINT"]
+AZURE_API_KEY = st.secrets["azure"]["AZURE_API_KEY"]
+AZURE_ENDPOINT = st.secrets["azure"]["AZURE_ENDPOINT"]
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
-AZURE_API_VERSION = st.secrets["AZURE_API_VERSION"]
+AZURE_API_VERSION = st.secrets["azure"]["AZURE_API_VERSION"]
 
 
 
