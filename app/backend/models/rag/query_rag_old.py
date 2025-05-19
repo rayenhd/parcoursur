@@ -16,11 +16,10 @@ from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
 from langchain_community.tools import DuckDuckGoSearchRun
+from langchain.embeddings import OpenAIEmbeddings
 import openai
 from openai import AzureOpenAI
 from azure.core.credentials import AzureKeyCredential
-from azure.identity  import DefaultAzureCredential, get_bearer_token_provider
-
 
 
 # === Chargement des variables d'environnement
@@ -32,7 +31,6 @@ EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 HUGGINGFACE_REPO = "OpenAssistant/oasst-sft-1-pythia-12b"  # ou HuggingFaceH4/zephyr-7b-beta
 USE_WEB_SEARCH = True
 AZURE_DEPLOYMENT = "gpt-4o"  # ou ton nom de déploiement
-AZURE_API_VERSION = "2025-01-01-preview"
 
 
 """""
@@ -40,12 +38,6 @@ client = AzureOpenAI(
     api_key=st.secrets["azure"]["AZURE_API_KEY"],
     azure_endpoint=st.secrets["azure"]["AZURE_ENDPOINT"],
     api_version=st.secrets["azure"]["AZURE_API_VERSION"]
-)
-
-
-token_provider = get_bearer_token_provider(
-    DefaultAzureCredential(),
-    "https://cognitiveservices.azure.com/.default"
 )
 """
 client = AzureOpenAI(
@@ -205,8 +197,9 @@ def answer_question(question: str, use_web: bool = False) -> str:
         doc.page_content = "[Interne] " + doc.page_content
 
     web_docs = []
-    if use_web:
-        web_docs = [Document(page_content="[Web] " + web_search_tool.run(question))]
+    
+    #if use_web:
+     #   web_docs = [Document(page_content="[Web] " + web_search_tool.run(question))]
 
     context = "\n\n".join(set(doc.page_content for doc in internal_docs + web_docs))
 
