@@ -390,11 +390,9 @@ if not st.session_state.q10_complete:
 
     if st.button("Valider") and user_answer.strip():
         st.session_state.q10_history.append((st.session_state.q10_current_question, user_answer.strip()))
-        print("____________ envoyé _____________")
-        print(st.session_state.q10_history)
-        st.session_state.index_q+=1
+        st.session_state.index_q = len(st.session_state.q10_history)
 
-        if len(st.session_state.q10_history) >= 3:
+        if st.session_state.index_q >= 3:
             if "q10_final_reco" not in st.session_state:
                 question = f"""
                 voila mes réponses à différentes questions :
@@ -403,15 +401,15 @@ if not st.session_state.q10_complete:
                 je veux que tu me proposes les métiers qui me correspondent le mieux
                 """
                 st.session_state.q10_final_reco = answer_question(question)
-                print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
-
-            #st.markdown("### 🔍 Recommandation personnalisée")
-            #st.write(st.session_state.q10_final_reco)
             st.session_state.q10_complete = True
             st.rerun()
-
         else:
-            st.session_state.q10_current_question = generate_next_question(st.session_state.q10_history)
+            next_q = generate_next_question(st.session_state.q10_history)
+            print(">>> Prochaine question :", next_q)
+            if not next_q:
+                st.session_state.q10_complete = True
+            else:
+                st.session_state.q10_current_question = next_q
             st.rerun()
 else:
     st.success("✅ Merci pour tes réponses ! Voici ce que je te recommande :")
