@@ -252,8 +252,6 @@ import os
 import base64
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-from backend.models.rag.generate_question import generate_next_question, generate_final_recommendation
-
 
 # CSS custom
 st.markdown("""
