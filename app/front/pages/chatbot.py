@@ -170,7 +170,6 @@ def answer_question(question: str, use_web: bool = False) -> str:
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
-import streamlit as st
 from PIL import Image
 import base64
 
