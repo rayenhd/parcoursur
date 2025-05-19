@@ -15,9 +15,7 @@ from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.tools import DuckDuckGoSearchRun
-from openai import AzureOpenAIimport 
-import streamlit as st
-st.write("✅ query_rag.py importé")
+from openai import AzureOpenAI
 
 
 # === Configuration
@@ -131,8 +129,7 @@ history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
-    print("testttttttttttttt")
-    print("✅ Azure client utilisé pour réponse :", client)
+    """""
     print("Question posée :", question)
     history.append(f"Human: {question}")
 
@@ -166,3 +163,22 @@ def answer_question(question: str, use_web: bool = False) -> str:
     answer = response.choices[0].message.content.strip()
     history.append(f"AI: {answer}")
     return answer
+
+    """
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "Tu es un assistant très utile."},
+                {"role": "user", "content": "Dis bonjour en français."}
+            ]
+        )
+        return response
+        st.success("✅ Réponse Azure OpenAI :")
+        st.write(response.choices[0].message.content)
+
+    except Exception as e:
+        st.error("❌ Erreur lors de l’appel à Azure OpenAI :")
+        st.exception(e)
+    
+    
