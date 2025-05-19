@@ -27,6 +27,7 @@ AZURE_DEPLOYMENT = "gpt-4o"
 AZURE_API_VERSION = "2025-01-01-preview"
 
 # === AzureOpenAI Client (clé en dur pour les tests)
+print('tesdfffffffffff')
 """""
 client = AzureOpenAI(
     api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
