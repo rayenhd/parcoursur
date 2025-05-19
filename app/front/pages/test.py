@@ -26,7 +26,7 @@ st.write("Ce test vérifie si l’appel à Azure OpenAI fonctionne bien sur Stre
 
 if st.button("📡 Tester Azure OpenAI"):
     try:
-        response = response = answer_question("testttt")
+        response = response = answer_question("testttt", client=client)
 
     except Exception as e:
         st.error("❌ Erreur lors de l’appel à Azure OpenAI :")
@@ -34,5 +34,5 @@ if st.button("📡 Tester Azure OpenAI"):
 
 # Diagnostic supplémentaire
 import os
-st.write("🔍 Variable OPENAI_API_KEY dans l’environnement :", os.getenv("OPENAI_API_KEY"))
-st.write("🔍 Variable OPENAI_API_BASE dans l’environnement :", os.getenv("OPENAI_API_BASE"))
+st.write("🔍 Variable OPENAI_API_KEY dans l’environnement :",st.secrets["OPENAI_API_KEY"])
+st.write("🔍 Variable OPENAI_API_BASE dans l’environnement :",st.secrets["OPENAI_API_KEY"])

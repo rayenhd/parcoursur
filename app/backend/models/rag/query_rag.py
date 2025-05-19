@@ -138,7 +138,7 @@ Voici des documents pertinents :
 history = []
 
 # === Fonction principale
-def answer_question(question: str, use_web: bool = False) -> str:
+def answer_question(question: str, use_web: bool = False, client=client) -> str:
     client = AzureOpenAI(
         api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
         azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
