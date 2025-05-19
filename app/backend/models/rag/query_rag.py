@@ -48,11 +48,24 @@ token_provider = get_bearer_token_provider(
     "https://cognitiveservices.azure.com/.default"
 )
 """
-client = AzureOpenAI(
-    api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
-    azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
-    api_version="2025-01-01-preview"
-)
+try:
+    client = AzureOpenAI(
+        api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
+        azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
+        api_version="2025-01-01-preview"
+    )
+
+    response = client.chat.completions.create(
+        model="gpt-4o",  # ⚠️ Mets ici le nom exact du déploiement, pas juste "gpt-4o" si ce n'est pas son nom
+        messages=[
+            {"role": "user", "content": "Dis bonjour"}
+        ]
+    )
+    st.success("✅ Réponse : " + response.choices[0].message.content)
+
+except Exception as e:
+    st.error("❌ Erreur lors de l’appel Azure OpenAI :")
+    st.exception(e)
 
 
 """""
