@@ -354,6 +354,5 @@ user_input = st.text_input("", placeholder="Tape ta question...")
 if st.button("Envoyer") and user_input.strip():
     st.session_state.chat_history.append(("Vous", user_input))
     response = answer_question(user_input)
-    #response = "🧪 Réponse simulée : tout fonctionne bien !"
     st.session_state.chat_history.append(("Bot", response))
     st.rerun()
