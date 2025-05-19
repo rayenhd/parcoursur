@@ -27,6 +27,7 @@ AZURE_DEPLOYMENT = "gpt-4o"
 AZURE_API_VERSION = "2025-01-01-preview"
 
 # === AzureOpenAI Client (clé en dur pour les tests)
+"""""
 client = AzureOpenAI(
     api_key="563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO",
     azure_endpoint="https://aissa-mapkatvd-eastus2.cognitiveservices.azure.com/",
@@ -40,7 +41,7 @@ web_search_tool = DuckDuckGoSearchRun()
 # === GCS : téléchargement & chargement des vectorstores
 bucket_name = "parcoursur_vectorized_data"
 prefix = "vectorstore/chunks"
-
+"""
 def download_blob(bucket_name, source_blob_name, destination_file_name):
     credentials = service_account.Credentials.from_service_account_info(
         st.secrets["gcp_service_account"]
