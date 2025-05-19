@@ -1,5 +1,11 @@
 import streamlit as st
 from openai import AzureOpenAI
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
+from backend.models.rag.query_rag import answer_question
+
 
 # === Configuration Azure OpenAI ===
 API_KEY = "563i46EB2UGwXDYza3g29DjU3xH7ytdS7dSHmtWGpQBRNzVqkHHTJQQJ99BEACHYHv6XJ3w3AAAAACOGgErO"
@@ -20,15 +26,7 @@ st.write("Ce test vérifie si l’appel à Azure OpenAI fonctionne bien sur Stre
 
 if st.button("📡 Tester Azure OpenAI"):
     try:
-        response = client.chat.completions.create(
-            model=DEPLOYMENT_NAME,
-            messages=[
-                {"role": "system", "content": "Tu es un assistant très utile."},
-                {"role": "user", "content": "Dis bonjour en français."}
-            ]
-        )
-        st.success("✅ Réponse Azure OpenAI :")
-        st.write(response.choices[0].message.content)
+        response = response = answer_question("testttt")
 
     except Exception as e:
         st.error("❌ Erreur lors de l’appel à Azure OpenAI :")
