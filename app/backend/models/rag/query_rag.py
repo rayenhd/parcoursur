@@ -129,6 +129,8 @@ history = []
 
 # === Fonction principale
 def answer_question(question: str, use_web: bool = False) -> str:
+    print("testttttttttttttt")
+    print("✅ Azure client utilisé pour réponse :", client)
     print("Question posée :", question)
     history.append(f"Human: {question}")
 
@@ -147,8 +149,7 @@ def answer_question(question: str, use_web: bool = False) -> str:
         history="\n".join(history[-5:]),
         context=context
     )
-    print("testttttttttttttt")
-    print("✅ Azure client utilisé pour réponse :", client)
+    
 
     response = client.chat.completions.create(
         model=AZURE_DEPLOYMENT,
