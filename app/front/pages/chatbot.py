@@ -16,6 +16,8 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.tools import DuckDuckGoSearchRun
 from openai import AzureOpenAI
+from langchain_openai import AzureOpenAIEmbeddings
+
 st.set_page_config(page_title="Chatbot d'orientation", page_icon="🤖")
 
 
