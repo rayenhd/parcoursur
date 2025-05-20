@@ -115,7 +115,7 @@ Donne une réponse claire, bienveillante, professionnelle et directement exploit
     return response
 
 # === Initialisation des modèles et outils
-embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
+#embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME)
 web_search_tool = DuckDuckGoSearchRun()
 
 # === GCS : téléchargement & chargement des vectorstores
@@ -165,8 +165,7 @@ def load_all_vectorstores(bucket_name, prefix):
                 docstore = pickle.load(f)
             with open(os.path.join(local_dir, "id_mapping.pkl"), "rb") as f:
                 id_map = pickle.load(f)
-            store = FAISS(index=index, docstore=docstore, index_to_docstore_id=id_map,
-                          embedding_function=embedding_model)
+            store = FAISS(index=index, docstore=docstore, index_to_docstore_id=id_map)
             stores.append(store)
         except Exception as e:
             print(f"❌ Erreur dans {dir_name}: {e}")
