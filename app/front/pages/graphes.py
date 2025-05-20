@@ -6,13 +6,11 @@ from google.cloud import storage
 from google.oauth2 import service_account
 from io import StringIO  # Import correct de StringIO
 
+
 st.set_page_config(page_title="Dashboard Métiers & Formations", layout="wide")
 
 # Chargement des données avec cache
 @st.cache_data
-
-
-
 
 def load_data():
 
