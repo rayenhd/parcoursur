@@ -22,7 +22,7 @@ st.set_page_config(page_title="Chatbot d'orientation", page_icon="🤖")
 # === Configuration
 load_dotenv()
 VECTORSTORE_DIR = "vectorstore/chunks/"
-EMBED_MODEL_NAME = "all-MiniLM-L12-v2"
+EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
 USE_WEB_SEARCH = True
 AZURE_DEPLOYMENT = "gpt-4o"
 
@@ -34,7 +34,7 @@ client = AzureOpenAI(
 )
 
 # === Initialisation des modèles et outils
-embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME,  model_kwargs={"device": "cpu"} )
+embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME,  model_kwargs={"device": "cuda"} )
 web_search_tool = DuckDuckGoSearchRun()
 
 # === GCS : téléchargement & chargement des vectorstores
