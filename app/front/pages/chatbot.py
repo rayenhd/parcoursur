@@ -34,7 +34,7 @@ client = AzureOpenAI(
 )
 
 # === Initialisation des modèles et outils
-embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME,  model_kwargs={"device": "cuda"} )
+embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL_NAME,  model_kwargs={"device": "CPU"} )
 web_search_tool = DuckDuckGoSearchRun()
 
 # === GCS : téléchargement & chargement des vectorstores
