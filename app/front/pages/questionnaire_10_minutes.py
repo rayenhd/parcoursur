@@ -452,7 +452,7 @@ if "qd_chat_history" not in st.session_state:
 index = st.session_state.index_q
 st.markdown("<div class='question-box'>", unsafe_allow_html=True)
 # Barre de progression
-progress_percentage = int((index / 3) * 100)
+progress_percentage = int((index / 7) * 100)
 st.markdown(f"""
     <div style='margin-bottom: 16px;'>
         <div  class='barre' style='width: 78%; background-color:  #150e60; height: 10px; border-radius: 8px; left:-0%; position: absolute;'>
@@ -472,7 +472,7 @@ if not st.session_state.q10_complete:
         st.session_state.q10_history.append((st.session_state.q10_current_question, user_answer.strip()))
         st.session_state.index_q = len(st.session_state.q10_history)
 
-        if st.session_state.index_q >= 3:
+        if st.session_state.index_q >= 7:
             if "q10_final_reco" not in st.session_state:
                 question = f"""
                 voila mes réponses à différentes questions :
